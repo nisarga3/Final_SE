@@ -155,10 +155,20 @@ href="{% static 'css/style2food.css' %}"
 
 <ul class="filters_menu">
   <li class="active" data-filter="*">All</li>
-  <li data-filter=".burger">Burger</li>
-  <li data-filter=".pizza">Pizza</li>
+  <li data-filter=".sandwich">Sandwich</li>
+  <li data-filter=".rolls">Rolls</li>
   <li data-filter=".pasta">Pasta</li>
-  <li data-filter=".fries">Fries</li>
+  <li data-filter=".south_thali">South thali</li>
+  <li data-filter=".north_thali">North thali</li>
+  <li data-filter=".chinese">Chinese</li>
+  <li data-filter=".north_indian">North Indian</li>
+  <li data-filter=".extras">Extras</li>
+  <li data-filter=".beverages">Beverages</li>
+  <li data-filter=".dosa">Dosa</li>
+  <li data-filter=".south_indian">South indian</li>
+  <li data-filter=".quick_bites">Quick bites</li>
+  <li data-filter=".chats">Chats</li>
+  <li data-filter=".ice_creams">Ice creams</li>
 </ul>
 </section>
 <section class="food_section layout_padding-bottom">
@@ -167,7 +177,7 @@ href="{% static 'css/style2food.css' %}"
 <div class="filters-content">
   <div class="row grid">
 {% for f in foodlist %}
-<div class="col-sm-6 col-lg-4 all pizza">
+<div class="col-sm-6 col-lg-4 all">
   <div class="box">
     <div>
       <div class="img-box">
