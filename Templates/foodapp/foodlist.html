@@ -177,7 +177,7 @@ href="{% static 'css/style2food.css' %}"
 <div class="filters-content">
   <div class="row grid">
 {% for f in foodlist %}
-<div class="col-sm-6 col-lg-4 all">
+<div class="col-sm-6 col-lg-4 * {{f.FoodCat}} ">
   <div class="box">
     <div>
       <div class="img-box">
