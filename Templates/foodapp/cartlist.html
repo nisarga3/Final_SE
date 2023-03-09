@@ -11,13 +11,14 @@
     <link href="https://fonts.googleapis.com/css?family=Caveat:400,700&subset=cyrillic" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <title>Mingos | Cart</title>
 	<link rel="shortcut icon" href="{% static 'images/favico.png' %}" type="image/x-icon">
+  <body style="background-image: none">
 	
 	<script src="{% static 'js/jquery.min.js' %}"></script>
 	<script>
@@ -106,33 +107,29 @@
 </tr>
       </span>
 
-        <a href="/deletecart/{{c.CartId}}"><button type="button" name="button" style="float: right;border-bottom-left-radius: 12px;padding: 15px 15px 15px 15px;margin-bottom: 0px;margin-top: auto!important;background: red;color:white;font-weight: bold;border:none;outline:none;">DELETE</button></a>
+        <a href="/deletecart/{{c.CartId}}"><button type="button" name="button" id="b4" style="float: right;border-bottom-left-radius: 12px;padding: 15px 15px 15px 15px;margin-bottom: 0px;margin-top: auto!important;background: red;color:white;font-weight: bold;border:none;outline:none;">DELETE</button></a>
       </div>
       {% endfor %}
       <input onclick="confirm()" value="CONFIRM" id="cnf-btn" class="butn" style="cursor:pointer;text-align:center;box-shadow:1px 1px 5px;border-radius:5px;width:50%;margin-left:25%;outline:none;border:none;height:40px;margin-top:20px;margin-bottom:20px;"/>
 	  <input type="submit" value="PLACE ORDER" id="sub-btn" class="butn" style="display:none;box-shadow:1px 1px 5px;border-radius:5px;width:50%;margin-left:25%;outline:none;border:none;height:40px;margin-top:20px;margin-bottom:20px;"/>
     </form>
+    <script>
+      // document.getElementById('b4').addEventListener('click', function() {
+      // Call the swal function to display the alert
+      swal("Hello world!");
+    // });
+      </script>
     </main>
-    <footer>
-      <div class="foot-con">
-        <div class="fo-cont-1">
-            Mingos
-        </div>
-        <div class="fo-cont-2">
-          <a class="ext-link" href="#">Home</a> |
-            <a class="ext-link" href="#">About us</a> |
-              <a class="ext-link" href="#">Privacy Policy</a> |
-                <a class="ext-link" href="#">Terms & Conditions</a>
-        </div>
-        <div class="fo-cont-3">
-          Name:	Miss Jazmin Heller Jr.<br />
-Phone:	38547800<br />
-Company:	Collins-Harris<br />
-Address	40 Tik Keung New Village Yik Ngoi Yai New Territories
-        </div>
-      </div><hr style="background-color: grey;margin-top:0px;"/>Made with HTML5 & CSS.<br />
-      Made by Certified <b>PPS Friends</b> an RAR Group's.<br />
-      ©<script type='text/javascript'>var creditsyear = new Date();document.write(creditsyear.getFullYear());</script> <a class="ext-link" href="/"><b>Mingos</b></a> All Rights Reserved | RAR Group's
-    </footer>
+    <div class="footer">
+      <div id="button"></div>
+    <div id="container">
+    <div id="cont">
+    <div class="footer_center">
+          <h3 style="color:white;">Mingos</h3>
+          <p style="color:white;">Made by Santosh | Nisarga | Keerthana🍔🍟🍕</p>
+    </div>
+    </div>
+    </div>
+    </div>
   </body>
 </html>

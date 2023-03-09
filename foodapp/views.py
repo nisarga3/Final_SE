@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.db import connection, transaction
-from foodapp.forms import FoodForm, CustForm, AdminForm, CartForm, OrderForm,AddFundsForm,SubtractFundsForm
-from foodapp.models import Food, Cust, Admin, Cart, Order,admin_balance,Wallet,admin_wallet,cust_balance
+from foodapp.forms import FoodForm, CustForm, AdminForm, CartForm, OrderForm, AddFundsForm, SubtractFundsForm
+from foodapp.models import Food, Cust, Admin, Cart, Order, admin_balance, Wallet, admin_wallet, cust_balance
 import datetime
-
+from django.shortcuts import render
+from django.http import JsonResponse
 cursor = connection.cursor()
 pay_total = 0.00
 # Create your views here.
@@ -55,6 +56,7 @@ def updatefood(request, FoodId):
         return redirect("/allfood")
     return render(request, 'updatefood.html', {'f': foods})
 
+
 def addcust(request):
     if request.method == 'POST':
         form = CustForm(request.POST)
@@ -62,14 +64,14 @@ def addcust(request):
             try:
                 form.save()
                 username = form.cleaned_data.get('CustEmail')
-                cust_instance = cust_balance(user = Cust.objects.get(CustEmail = username),balance = 0)
+                cust_instance = cust_balance(
+                    user=Cust.objects.get(CustEmail=username), balance=0)
                 cust_instance.save()
             except:
-                return render(request,"error.html")
+                return render(request, "error.html")
     else:
         form = CustForm()
-    return render(request,'addcust.html',{'form':form})
-    
+    return render(request, 'addcust.html', {'form': form})
 
 
 def showcust(request):
@@ -182,37 +184,40 @@ def changepass(request):
 
 
 def placeorder(request):
-        global pay_total
-        if request.method=="POST":
-                form = AddFundsForm(request.POST)
-                price=request.POST.getlist('FoodPrice','')
-                q=request.POST.getlist('FoodQuant','')
-                total=0.0
-                for i in range(len(price)):
-                    total=total+float(price[i])*float(q[i])
-                pay_total = total
-                today = datetime.datetime.now()
-                sql = 'insert into FP_Order(CustEmail,OrderDate,TotalBill) values ("%s","%s","%f")' %(request.session['CustId'],today,total)
-                i=cursor.execute(sql)
-                transaction.commit()
-                sql1= 'select * from FP_Order where CustEmail="%s" and OrderDate="%s"'%(request.session['CustId'],today)
-                for o in Order.objects.raw(sql1):
-                 if o.CustEmail==request.session['CustId']:
-                  od=str(o.OrderId)
-                  print("Going to payments")
-                  return redirect('subtract_funds')
-                for c in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s"'%request.session['CustId']):
-                 custs=c
-                wallet = Wallet.objects.get(user = custs)
-                print(wallet.balance)
-                sql = 'delete from FP_Cart where CustEmail="%s"' %(request.session['CustId'])
-                i=cursor.execute(sql)
-                transaction.commit()
-                
-                od=Order()
-        else:
-            form = SubtractFundsForm()
-        return redirect('subtract_funds')
+    global pay_total
+    if request.method == "POST":
+        form = AddFundsForm(request.POST)
+        price = request.POST.getlist('FoodPrice', '')
+        q = request.POST.getlist('FoodQuant', '')
+        total = 0.0
+        for i in range(len(price)):
+            total = total+float(price[i])*float(q[i])
+        pay_total = total
+        today = datetime.datetime.now()
+        sql = 'insert into FP_Order(CustEmail,OrderDate,TotalBill) values ("%s","%s","%f")' % (
+            request.session['CustId'], today, total)
+        i = cursor.execute(sql)
+        transaction.commit()
+        sql1 = 'select * from FP_Order where CustEmail="%s" and OrderDate="%s"' % (
+            request.session['CustId'], today)
+        for o in Order.objects.raw(sql1):
+            if o.CustEmail == request.session['CustId']:
+                od = str(o.OrderId)
+                print("Going to payments")
+                return redirect('subtract_funds')
+        for c in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s"' % request.session['CustId']):
+            custs = c
+        wallet = Wallet.objects.get(user=custs)
+        print(wallet.balance)
+        sql = 'delete from FP_Cart where CustEmail="%s"' % (
+            request.session['CustId'])
+        i = cursor.execute(sql)
+        transaction.commit()
+
+        od = Order()
+    else:
+        form = SubtractFundsForm()
+    return redirect('subtract_funds')
 
 
 def getorder(request):
@@ -228,49 +233,53 @@ def updateQNT(request, s):
     sql = "update FP_Cart set FoodQuant='%d' where CartId='%d'" % (qt, cartId)
     i = cursor.execute(sql)
     transaction.commit()
-    
-def payment_interface_render(request,params = None):
-    if params != None:
-     return render(request,"payments.html",params)
-    else:
-        return render(request,"payments.html")
 
-def initiate_payment(request,params = None):
-     if request.method == "POST":
-      try:
-        username = request.POST.get('userId')
-        password = request.POST.get('userpass')
-        amount = int(request.POST.get('amount'))
-        print(amount)
-        sender_user = Cust.objects.get(CustEmail = username)
-        rec_user = Admin.objects.get(AdminId = 'cosmix')
-        sender = cust_balance.objects.get(user = sender_user)
-        if (sender == None):
-            cust_balance.objects.create(user= sender_user,balance = 500)
-        rec = admin_balance.objects.get(user = rec_user)
-        if(rec == None):
-            admin_balance.objects.create(user = rec_user,balance = 0)
-        if username is None:
-            raise ValueError
-        for a in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s" and CustPass="%s"'%(username,password)):
-            if a.CustEmail==username:
-                sender.balance = sender.balance-int(amount)
-                rec.balance = rec.balance+int(amount)
-                sender.save()
-                rec.save() 
-        print(sender.balance)
-        return render(request,'payments.html',{"balance" :  sender.balance})          
-      except Exception as e:
-       msg = "Transaction Failure, Please check and try again"
-     return payment_interface_render(request,params)
+
+def payment_interface_render(request, params=None):
+    if params != None:
+        return render(request, "payments.html", params)
+    else:
+        return render(request, "payments.html")
+
+
+def initiate_payment(request, params=None):
+    if request.method == "POST":
+        try:
+            username = request.POST.get('userId')
+            password = request.POST.get('userpass')
+            amount = int(request.POST.get('amount'))
+            print(amount)
+            sender_user = Cust.objects.get(CustEmail=username)
+            rec_user = Admin.objects.get(AdminId='cosmix')
+            sender = cust_balance.objects.get(user=sender_user)
+            if (sender == None):
+                cust_balance.objects.create(user=sender_user, balance=500)
+            rec = admin_balance.objects.get(user=rec_user)
+            if(rec == None):
+                admin_balance.objects.create(user=rec_user, balance=0)
+            if username is None:
+                raise ValueError
+            for a in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s" and CustPass="%s"' % (username, password)):
+                if a.CustEmail == username:
+                    sender.balance = sender.balance-int(amount)
+                    rec.balance = rec.balance+int(amount)
+                    sender.save()
+                    rec.save()
+            print(sender.balance)
+            return render(request, 'payments.html', {"balance":  sender.balance})
+        except Exception as e:
+            msg = "Transaction Failure, Please check and try again"
+    return payment_interface_render(request, params)
+
 
 trans_list = []
 
+
 def add_funds(request):
     if request.method == 'POST':
-        for c in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s"'%request.session['CustId']):
-         custs=c
-        wallet = Wallet.objects.get(user = custs)
+        for c in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s"' % request.session['CustId']):
+            custs = c
+        wallet = Wallet.objects.get(user=custs)
         amount = request.POST.get('amount')
         wallet.balance = float(wallet.balance) + float(amount)
         wallet.transactions += f'Added {amount}\n'
@@ -278,24 +287,25 @@ def add_funds(request):
         return redirect('wallet')
     else:
         form = AddFundsForm()
-    return render(request, 'addfunds.html', {'form' : form})
+    return render(request, 'addfunds.html', {'form': form})
+
 
 def subtract_funds(request):
     global pay_total
     adm_wallet = None
     if request.method == 'POST':
         form = SubtractFundsForm(initial={'amount': pay_total})
-        for c in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s"'%request.session['CustId']):
-         custs=c
-         wallet = Wallet.objects.get(user = custs)
+        for c in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s"' % request.session['CustId']):
+            custs = c
+            wallet = Wallet.objects.get(user=custs)
         for a in Admin.objects.raw('Select * from FP_Admin where AdminId="admin"'):
-         admin = a
-        adm_wallet = admin_wallet.objects.get(user = admin)
+            admin = a
+        adm_wallet = admin_wallet.objects.get(user=admin)
         amount = request.POST.get('amount')
         if wallet.balance >= float(amount):
-            #Debit at customer end
+            # Debit at customer end
             wallet.balance = float(wallet.balance)-float(amount)
-            #Credit at admin end
+            # Credit at admin end
             adm_wallet.balance = float(adm_wallet.balance) + float(amount)
             wallet.transactions += f'Subtracted {amount}\n'
             wallet.save()
@@ -305,32 +315,35 @@ def subtract_funds(request):
             return render(request, 'subtractfunds.html', {'error': 'Insufficient funds'})
     else:
         form = SubtractFundsForm(initial={'amount': pay_total})
-    return render(request, 'subtractfunds.html',{'form' : form})
+    return render(request, 'subtractfunds.html', {'form': form})
 
-def append_lis(list,txt):
+
+def append_lis(list, txt):
     list.append(txt)
     return list
 
+
 def wallet(request):
-     trans_list = []
-     for c in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s"'%request.session['CustId']):
-         custs=c
-     try:
-      wallet = Wallet.objects.get(user= custs)
-     except:
-      Wallet.objects.create(user = custs,balance = 100.0)
-      wallet = Wallet.objects.get(user= custs)
+    trans_list = []
+    for c in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s"' % request.session['CustId']):
+        custs = c
+    try:
+        wallet = Wallet.objects.get(user=custs)
+    except:
+        Wallet.objects.create(user=custs, balance=100.0)
+        wallet = Wallet.objects.get(user=custs)
     #   print(trans_list)
-     trans_list = wallet.transactions.split('\n')
-     return render(request,'wallet.html', {'wallet': wallet,'trans':trans_list})
- 
+    trans_list = wallet.transactions.split('\n')
+    return render(request, 'wallet.html', {'wallet': wallet, 'trans': trans_list})
+
+
 def admin_acc(request):
     print(request.session['AdminId'])
-    for a in Admin.objects.raw('Select * from FP_Admin where AdminId="%s"'%(request.session['AdminId'])):
+    for a in Admin.objects.raw('Select * from FP_Admin where AdminId="%s"' % (request.session['AdminId'])):
         admin = a
     try:
-        adm_wallet = admin_wallet.objects.get(user = admin)
+        adm_wallet = admin_wallet.objects.get(user=admin)
     except:
-        admin_wallet.objects.create(user = admin,balance = 0.0)
-        adm_wallet = admin_wallet.objects.get(user = admin)
-    return render(request,'admin_wallet.html',{'adm_wallet' : adm_wallet})
+        admin_wallet.objects.create(user=admin, balance=0.0)
+        adm_wallet = admin_wallet.objects.get(user=admin)
+    return render(request, 'admin_wallet.html', {'adm_wallet': adm_wallet})

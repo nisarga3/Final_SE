@@ -1,9 +1,10 @@
-{% load static %}
+{ %load static % }
+
 body{
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background: url("/static/images/mainscreen5.jpg") no-repeat;
+  background: url("/static/images/loginbg.jpg") no-repeat;
   background-size: cover;
 }
 .login-box{
@@ -47,7 +48,7 @@ body{
 .btn{
   width: 100%;
   background: none;
-  border: 2px solid #FF5722
+  border: 2px solid #FF5722;
   color: white;
   padding: 5px;
   font-size: 18px;

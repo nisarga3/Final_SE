@@ -14,7 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATES_DIR = os.path.join(BASE_DIR,'Templates/foodapp/')
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'Templates/foodapp/')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'foodapp',
     'crispy_forms',
+    'sweetify',
 ]
-
+# possible options: 'sweetalert', 'sweetalert2' - default is 'sweetalert2'
+SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,7 +55,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'FoodProject.urls'
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
