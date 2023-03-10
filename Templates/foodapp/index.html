@@ -13,144 +13,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<style>--------------------------------------------------------------
-
-   --------------------------------------------------------------*/
-   .about .about-img {
-     min-height: 500px;
-   }
-   
-   .about h3 {
-     font-weight: 700;
-     font-size: 36px;
-     margin-bottom: 30px;
-     font-family: var(--font-secondary);
-   }
-   
-   .about .call-us {
-     left: 10%;
-     right: 10%;
-     bottom: 10%;
-     background-color: #fff;
-     box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.08);
-     padding: 20px;
-     text-align: center;
-   }
-   
-   .about .call-us h4 {
-     font-size: 24px;
-     font-weight: 700;
-     margin-bottom: 5px;
-     font-family: var(--font-default);
-   }
-   
-   .about .call-us p {
-     font-size: 28px;
-     font-weight: 700;
-     color: var(--color-primary);
-   }
-   
-   .about .content ul {
-     list-style: none;
-     padding: 0;
-   }
-   
-   .about .content ul li {
-     padding: 0 0 8px 26px;
-     position: relative;
-   }
-   
-   .about .content ul i {
-     position: absolute;
-     font-size: 20px;
-     left: 0;
-     top: -3px;
-     color: var(--color-primary);
-   }
-   
-   .about .content p:last-child {
-     margin-bottom: 0;
-   }
-   
-   .about .play-btn {
-     width: 94px;
-     height: 94px;
-     background: radial-gradient(var(--color-primary) 50%, rgba(206, 18, 18, 0.4) 52%);
-     border-radius: 50%;
-     display: block;
-     position: absolute;
-     left: calc(50% - 47px);
-     top: calc(50% - 47px);
-     overflow: hidden;
-   }
-   
-   .about .play-btn:before {
-     content: "";
-     position: absolute;
-     width: 120px;
-     height: 120px;
-     animation-delay: 0s;
-     animation: pulsate-btn 2s;
-     animation-direction: forwards;
-     animation-iteration-count: infinite;
-     animation-timing-function: steps;
-     opacity: 1;
-     border-radius: 50%;
-     border: 5px solid rgba(206, 18, 18, 0.7);
-     top: -15%;
-     left: -15%;
-     background: rgba(198, 16, 0, 0);
-   }
-   
-   .about .play-btn:after {
-     content: "";
-     position: absolute;
-     left: 50%;
-     top: 50%;
-     transform: translateX(-40%) translateY(-50%);
-     width: 0;
-     height: 0;
-     border-top: 10px solid transparent;
-     border-bottom: 10px solid transparent;
-     border-left: 15px solid #fff;
-     z-index: 100;
-     transition: all 400ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
-   }
-   
-   .about .play-btn:hover:before {
-     content: "";
-     position: absolute;
-     left: 50%;
-     top: 50%;
-     transform: translateX(-40%) translateY(-50%);
-     width: 0;
-     height: 0;
-     border: none;
-     border-top: 10px solid transparent;
-     border-bottom: 10px solid transparent;
-     border-left: 15px solid #fff;
-     z-index: 200;
-     animation: none;
-     border-radius: 0;
-   }
-   
-   .about .play-btn:hover:after {
-     border-left: 15px solid var(--color-primary);
-     transform: scale(20);
-   }
-   
-   @keyframes pulsate-btn {
-     0% {
-       transform: scale(0.6, 0.6);
-       opacity: 1;
-     }
-   
-     100% {
-       transform: scale(1, 1);
-       opacity: 0;
-     }
-   }</style>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -344,13 +208,12 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="container">
-                           <h1 class="banner_taital style">Get Medical Care early</h1>
-                           <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-                           <div class="more_bt"><a href="#">Read More</a></div>
+                           <h1 class="banner_taital style"></h1>
+                           <p class="banner_text"></p>
                         </div>
                      </div>
                      <div class="col-md-6">
-                        <div class="banner_img"><img src="{% static 'images/noodles.png' %}" style=    "width: 50%;
+                        <div class="banner_img"><img src="{% static 'images/b.png' %}" style=    "width: 50%;
                           text-align: center;"></div>
                      </div>
                   </div>
@@ -359,13 +222,12 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="container">
-                           <h1 class="banner_taital">+l Care early</h1>
-                           <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-                           <div class="more_bt"><a href="#">Read More</a></div>
+                           <h1 class="banner_taital"></h1>
+                           <p class="banner_text"></p>
                         </div>
                      </div>
                      <div class="col-md-6">
-                        <div class="banner_img"><img src="{% static 'images/samosa.png' %}" style=    "width: 50%;
+                        <div class="banner_img"><img src="{% static 'images/a.png' %}" style=    "width: 50%;
                           text-align: center;"></div>
                      </div>
                   </div>
@@ -374,14 +236,13 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="container">
-                           <h1 class="banner_taital">Get Medical Care early</h1>
-                           <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-                           <div class="more_bt"><a href="#">Read More</a></div>
+                           <img src="{% static 'images/c.jpeg' %}" style=    "width: 50%;
+                              text-align: center;">
+                           <p class="banner_text"></p>
                         </div>
                      </div>
                      <div class="col-md-6">
-                        <div class="banner_img"><img src="{% static 'images/c.jpeg' %}" style=    "width: 50%;
-                          text-align: center;"></div>
+                        <div class="banner_img"></div>
                      </div>
                   </div>
                </div>
@@ -390,14 +251,15 @@
               <div class="row">
                  <div class="col-md-6">
                     <div class="container">
-                       <h1 class="banner_taital">Get Medical Care early</h1>
-                       <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-                       <div class="more_bt"><a href="#">Read More</a></div>
+                       <h1 class="banner_taital"></h1>
+                       <p class="banner_text"></p>
+                       <div class="more_bt"><a href="#"></a></div>
                     </div>
                  </div>
                  <div class="col-md-6">
-                    <div class="banner_img"><img src="{% static 'images/d.jpeg' %}" style=    "width: 50%;
-                      text-align: center;"></div>
+                  <img src="{% static 'images/d.jpeg' %}" style=    "width: 50%;
+                      text-align: center;">
+                    <div class="banner_img"></div>
                  </div>
               </div>
            </div>
@@ -406,14 +268,15 @@
           <div class="row">
              <div class="col-md-6">
                 <div class="container">
-                   <h1 class="banner_taital">Get Medical Care early</h1>
-                   <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-                   <div class="more_bt"><a href="#">Read More</a></div>
+                   <h1 class="banner_taital"></h1>
+                   <p class="banner_text"></p>
+                   <div class="more_bt"><a href="#"></a></div>
                 </div>
              </div>
              <div class="col-md-6">
-                <div class="banner_img"><img src="{% static 'images/e.jpeg' %}" style=    "width: 50%;
-                  text-align: center;"></div>
+               <img src="{% static 'images/e.jpeg' %}" style=    "width: 50%;
+                  text-align: center;">
+                <div class="banner_img"></div>
              </div>
           </div>
        </div>
@@ -421,14 +284,15 @@
         <div class="row">
            <div class="col-md-6">
               <div class="container">
-                 <h1 class="banner_taital">Get Medical Care early</h1>
-                 <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-                 <div class="more_bt"><a href="#">Read More</a></div>
+                 <h1 class="banner_taital"></h1>
+                 <p class="banner_text"></p>
+                 <div class="more_bt"><a href="#"></a></div>
               </div>
            </div>
            <div class="col-md-6">
-              <div class="banner_img"><img src="{% static 'images/f.jpeg' %}" style=    "width: 50%;
-                text-align: center;"></div>
+            <img src="{% static 'images/f.jpeg' %}" style=    "width: 50%;
+                text-align: center;">
+              
            </div>
         </div>
      </div>
@@ -437,9 +301,9 @@
     <div class="row">
        <div class="col-md-6">
           <div class="container">
-             <h1 class="banner_taital">Get Medical Care early</h1>
-             <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-             <div class="more_bt"><a href="#">Read More</a></div>
+             <h1 class="banner_taital"></h1>
+             <p class="banner_text"></p>
+             <div class="more_bt"><a href="#"></a></div>
           </div>
        </div>
        <div class="col-md-6">
@@ -453,9 +317,9 @@
 <div class="row">
    <div class="col-md-6">
       <div class="container">
-         <h1 class="banner_taital">Get Medical Care early</h1>
-         <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-         <div class="more_bt"><a href="#">Read More</a></div>
+         <h1 class="banner_taital"><h1>
+         <p class="banner_text"><p>
+         <div class="more_bt"><a href="#"></a></div>
       </div>
    </div>
    <div class="col-md-6">
@@ -469,9 +333,9 @@
 <div class="row">
    <div class="col-md-6">
       <div class="container">
-         <h1 class="banner_taital">Get Medical Care early</h1>
-         <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-         <div class="more_bt"><a href="#">Read More</a></div>
+         <h1 class="banner_taital"></h1>
+         <p class="banner_text"></p>
+         <div class="more_bt"><a href="#"></a></div>
       </div>
    </div>
    <div class="col-md-6">
@@ -485,9 +349,9 @@
 <div class="row">
    <div class="col-md-6">
       <div class="container">
-         <h1 class="banner_taital">Get Medical Care early</h1>
-         <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-         <div class="more_bt"><a href="#">Read More</a></div>
+         <h1 class="banner_taital"></h1>
+         <p class="banner_text"></p>
+         <div class="more_bt"><a href="#"></a></div>
       </div>
    </div>
    <div class="col-md-6">
@@ -497,38 +361,11 @@
 </div>
 </div>
         </div>
-         <!-- ======= About Section ======= -->
-    <section id="about" class="about" style="background-image: url(../../foodapp/static/images/canteen_pic.png);">
-      <div class="container">
+        <div class="about">
+          <h2 style="padding-top:5px;padding-left: 40% ;font-family: 'Courier New', Courier, monospace;">RVCE Canteen</h2>
+          <img src="{% static '/images/canteen_pic.png' %}" style="padding-left:20%;" class="img-fluid" alt=""> 
 
-        <div class="section-header">
-          <h2>About Us</h2>
-          <p>Learn More <span>About Us</span></p>
         </div>
-          
-        <div class="row gy-4">
-          <!-- <img src="../../foodapp/static/images/canteen_pic.png" class="img-fluid" alt=""> -->
-          <div class="col-lg-7 position-relative about-img" data-aos="fade-up" data-aos-delay="150">
-            <div class="call-us position-absolute">
-              <h4>Book a Table</h4>
-              <p>+91 9686566801</p>
-            </div>
-          </div>
-          <div class="col-lg-5 d-flex align-items-end" >
-            <div class="content ps-0 ps-lg-5">
-              <p class="fst-italic">
-               We at RV college of Engineering cater to 1 lakh students everyday
-              </p>
-              <ul>
-                <li> Working days: Monday-Saturday</li>
-                <li>Working hours: 9:00AM to 8:00PM</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End About Section -->
 
     </main>
       <div class="footer">

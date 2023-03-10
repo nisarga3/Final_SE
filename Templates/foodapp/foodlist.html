@@ -147,6 +147,7 @@
     <!-- <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script> -->
     <!-- nice select -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+
     <script>
       // isotope js
       $(window).on('load', function () {
@@ -195,16 +196,17 @@
     .example button:active{
       background-color: #81ccee; 
     }</style>
+
+
   </head>
   <body style="background-image: none">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-      // function cartconfirm()
-      // {
-        document.getElementById('53').onclick = function(){
-                                swal("Successfully added to cart", "success");
-                              };
-      // }
+      function cartconfirm()
+      {
+                swal("Successfully added   to cart", "success");
+                      
+      }
      
       </script>
     <nav
@@ -402,7 +404,7 @@
                           <div class="example">
                           <a href="/addtocart/{{f.FoodId}}"
                             >
-                            <button id="53">Add to Cart</button>
+                            <button id="b3" onclick="cartconfirm()">Add to Cart</button>
                            </a
                           > 
                         
