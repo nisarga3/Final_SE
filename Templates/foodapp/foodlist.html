@@ -17,7 +17,7 @@
     />
     <link
       rel="stylesheet"
-      href="path/to/font-awesome/css/font-awesome.min.css"
+      href="{% static '/css/font-awesome.min.css' %}"
     />
     <link
       rel="stylesheet"
@@ -104,9 +104,8 @@
       integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
       crossorigin="anonymous"
     ></script>
-    <script src="%static 'js/jquery-3.4.1.min.js'%"></script>
-    <script src="%static 'js/bootstrap.js'%"></script>
-    <script src="%static 'js/custom.js'%"></script>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
 
     <style media="screen">
       .w3-content,
@@ -137,7 +136,7 @@
       type="image/x-icon"
     />
     <!-- jQery -->
-    <script src="{% static 'js/jquery-3.4.1.min.js'%}"></script>
+    <script type = "text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <!-- popper js -->
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -150,15 +149,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
     <script>
       // isotope js
-      $(window).on("load", function () {
-        $(".filters_menu li").click(function () {
-          $(".filters_menu li").removeClass("active");
-          $(this).addClass("active");
+      $(window).on('load', function () {
+        $('.filters_menu li').click(function () {
+          $('.filters_menu li').removeClass('active');
+          $(this).addClass('active');
 
-          var data = $(this).attr("data-filter");
+          var data = $(this).attr('data-filter');
           $grid.isotope({
-            filter: data,
-          });
+            filter: data
+          })
         });
 
         var $grid = $(".grid").isotope({
@@ -166,8 +165,8 @@
           percentPosition: false,
           masonry: {
             columnWidth: ".all",
-          },
-        });
+          }
+        })
       });
     </script>
           <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -202,9 +201,9 @@
     <script>
       // function cartconfirm()
       // {
-      //   document.getElementById('b3').onclick = function(){
+        document.getElementById('53').onclick = function(){
                                 swal("Successfully added to cart", "success");
-      //                         };
+                              };
       // }
      
       </script>
@@ -256,12 +255,6 @@
             >
           </li>
           {% if request.session.CustId is None and request.session.AdminId is None %}
-          <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="foodcatalogue"
-              >Food Catalogue <span class="sr-only">(current)</span></a
-            >
-          </li>
-          {% endif %} {% if request.session.CustId is None and request.session.AdminId is None %}
           <li class="nav-item active">
             <a class="nav-link" id="nav-link" href="addcustomer"
               >Register <span class="sr-only">(current)</span></a
@@ -370,7 +363,7 @@
         </div>
 
         <ul class="filters_menu">
-          <li class="active" data-filter="*">All</li>
+          <li class="active" data-filter=".all">All</li>
           <li data-filter=".Sandwich">Sandwich</li>
           <li data-filter=".rolls">Rolls</li>
           <li data-filter=".pasta">Pasta</li>
@@ -393,7 +386,7 @@
           <div class="filters-content">
             <div class="row grid">
               {% for f in foodlist %}
-              <div class="col-sm-6 col-lg-4 all {{f.FoodCat}} ">
+              <div class="col-sm-6 col-lg-4 all {{f.FoodCat}} " data-category = "{{f.FoodCat}}">
                 <div class="box">
                   <div>
                     <div class="img-box">
@@ -409,14 +402,11 @@
                           <div class="example">
                           <a href="/addtocart/{{f.FoodId}}"
                             >
-                            <button id="b3">Add to Cart</button>
+                            <button id="53">Add to Cart</button>
                            </a
-                          >    <script>
-                            document.getElementById('b3').addEventListener('click', function() {
-                            // Call the swal function to display the alert
-                            swal("Hello world!");
-                          });
-                            </script></div>
+                          > 
+                        
+                        </div>
                         </p>
 
                         {% endif %} 

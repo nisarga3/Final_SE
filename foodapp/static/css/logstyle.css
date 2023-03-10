@@ -1,10 +1,8 @@
-{ %load static % }
-
 body{
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background: url("/static/images/loginbg.jpg") no-repeat;
+  background: url("/static/images/bgbg.jpeg") no-repeat;
   background-size: cover;
 }
 .login-box{

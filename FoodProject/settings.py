@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'foodapp',
     'crispy_forms',
     'sweetify',
+    'jquery',
 ]
 # possible options: 'sweetalert', 'sweetalert2' - default is 'sweetalert2'
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'

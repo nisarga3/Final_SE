@@ -14,10 +14,6 @@ def foodapp(request):
     return render(request, 'index.html')
 
 
-def foodcatalogue(request):
-    return render(request, 'foodcatalogue.html')
-
-
 def addfood(request):
     if request.method == "POST":
         form = FoodForm(request.POST, request.FILES)
