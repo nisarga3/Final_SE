@@ -169,9 +169,16 @@ def delcart(request, CartId):
 
 
 def showcart(request):
+    global pay_total
     cart = Cart.objects.raw(
         'Select CartId,FoodName,FoodPrice,FoodQuant,FoodImage from FP_Food as f inner join FP_Cart as c on f.FoodId=c.FoodId where c.CustEmail="%s"' % request.session['CustId'])
     transaction.commit()
+    price = request.POST.getlist('FoodPrice', '')
+    q = request.POST.getlist('FoodQuant', '')
+    total = 0.0
+    for i in range(len(price)):
+        total = total+float(price[i])*float(q[i])
+        pay_total = total
     return render(request, "cartlist.html", {'cartlist': cart, 'total_amt': pay_total})
 
 

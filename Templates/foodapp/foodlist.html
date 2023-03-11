@@ -148,7 +148,7 @@
     <!-- nice select -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
 
-    <!-- <script>
+    <script>
       // isotope js
       $(window).on('load', function () {
         $('.filters_menu li').click(function () {
@@ -169,9 +169,20 @@
           }
         })
       });
-    </script> -->
+    </script>
           <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-          
+          <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mixitup/3.3.1/mixitup.min.js" integrity="sha512-nKZDK+ztK6Ug+2B6DZx+QtgeyAmo9YThZob8O3xgjqhw2IVQdAITFasl/jqbyDwclMkLXFOZRiytnUrXk/PM6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>     -->
+<!--      
+          <script>
+            var mixer = mixitup('..filters_menu li', {
+              selectors: {
+                target: '.filters_menu li active'
+              },
+              animation: {
+                duration: 300
+              }
+            });
+          </script> -->
      <script>
       function filterObjects(c)
       {
@@ -406,21 +417,21 @@
         </div>
 
         <ul class="filters_menu">
-          <li class="active" class=".all">All</li>
-          <li class=".Sandwich">Sandwich</li>
-          <li class=".rolls">Rolls</li>
-          <li class=".pasta">Pasta</li>
-          <li class=".south thali">South thali</li>
-          <li class=".north thali">North thali</li>
-          <li class=".chinese">Chinese</li>
-          <li class=".north indian">North Indian</li>
-          <li class=".extra">Extras</li>
-          <li class=".beverages">Beverages</li>
-          <li class=".dosa">Dosa</li>
-          <li class=".south indian">South indian</li>
-          <li class=".quick bites">Quick bites</li>
-          <li class=".Chaats">Chats</li>
-          <li class=".Ice Cream">Ice creams</li>
+          <li data-filter="Sandwich">Sandwich</li>
+          <li data-filter="rolls">Rolls</li>
+          <!-- <li data-filter=" class=".all">All</li> -->
+          <li data-filter="pasta">Pasta</li>
+          <li data-filter="south thali">South thali</li>
+          <li data-filter="north thali">North thali</li>
+          <li data-filter="chinese">Chinese</li>
+          <li data-filter="north indian">North Indian</li>
+          <li data-filter="extra">Extras</li>
+          <li data-filter="beverages">Beverages</li>
+          <li data-filter="dosa">Dosa</li>
+          <li data-filter="south indian">South indian</li>
+          <li data-filter="quick bites">Quick bites</li>
+          <li data-filter="Chaats">Chats</li>
+          <li data-filter="Ice Cream">Ice creams</li>
         </ul>
       </section>
 
@@ -447,7 +458,7 @@
                         {% if request.session.CustId is not none %}
                         <b style="font-size:20px;"><i>{{c.FoodName}}</i></b><br/><b>Quantity :</b>
                 
-                    <input type="number" name="FoodQuant" class="qnt" value="{{f.FoodQuant}}" name="FoodQuant" id="foodqnt" min="1" max="20" style="text-align:center;"/>
+                    <input type="number" name="FoodQuant" class="qnt" value={{f.FoodQuant}} name="FoodQuant" id="foodqnt" min="1" max="20" style="text-align:center;"/>
                     
                     <input type="hidden" id="ctid" value="{{c.CartId}}" readonly />
                         

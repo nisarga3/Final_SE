@@ -8,7 +8,8 @@
   text-decoration: none;
 }
 body{
-  background-image: url("/static/images/mainscreen4.jpg");
+  /* background-image: url("/static/images/mainscreen4.jpg"); */
+  background-color: black;
   height: 100vh;
   max-width: 100%;
   background-size: cover;
