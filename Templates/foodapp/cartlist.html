@@ -58,7 +58,7 @@
       function confirmdel()
       {
         event.preventDefault();
-        var url = $(b4).attr('href');
+        var url = $(b6).attr('href');
 
         Swal.fire({
           title: 'Are you sure?',
@@ -163,7 +163,7 @@
       </span>
 
         <!-- <a href="/deletecart/{{c.CartId}}"> -->
-          <button href="/deletecart/{{c.CartId}}" type="button" onclick="confirmdel()" name="button" id="b4" style="float: right;border-bottom-left-radius: 12px;padding: 15px 15px 15px 15px;margin-bottom: 0px;margin-top: auto!important;background: red;color:white;font-weight: bold;border:none;outline:none;">DELETE</button></a>
+          <button href="/deletecart/{{c.CartId}}" type="button" onclick="confirmdel()" name="button" id="b6" style="float: right;border-bottom-left-radius: 12px;padding: 15px 15px 15px 15px;margin-bottom: 0px;margin-top: auto!important;background: red;color:white;font-weight: bold;border:none;outline:none;">DELETE</button></a>
       </div>
       {% endfor %}
       <input onclick="confirm()" value="CONFIRM" id="cnf-btn" class="butn" style="cursor:pointer;text-align:center;box-shadow:1px 1px 5px;border-radius:5px;width:50%;margin-left:25%;outline:none;border:none;height:40px;margin-top:20px;margin-bottom:20px;"/>
