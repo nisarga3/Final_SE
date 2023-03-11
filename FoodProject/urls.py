@@ -63,6 +63,7 @@ urlpatterns = [
     path('add_funds/', views.add_funds, name="add_funds"),
     path('subtract_funds/', views.subtract_funds, name="subtract_funds"),
     path('admin_wallet/', views.admin_acc, name="admin_wallet"),
+    path('stats/', views.my_plot, name="stats")
 
 ]
 if settings.DEBUG:

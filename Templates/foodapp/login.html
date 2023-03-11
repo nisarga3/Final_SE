@@ -1,31 +1,39 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-  {% load static %}
     <meta charset="utf-8">
-    <title></title>
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+
+    <title>Login</title>
     <link rel="stylesheet" href="{% static 'css/logstyle.css' %}">
+    <style>
+      body {
+        background-image: url("{% static 'images/background.jpg' %}") !important; 
+        background-repeat: no-repeat;
+      }
+    </style>
   </head>
   <body>
-<div class="login-box" >
-  <h1>Login</h1>
-  <form class="login-form" action="dologin" method="post">
-  {% csrf_token %}
-  <div class="textbox">
-    <i class="fas fa-user"></i>
-    <input type="text" name="userId" placeholder="Username">
-  </div>
+    <div class="login-box">
+      <h1>Login</h1>
+      <form class="login-form" action="dologin" method="post">
+        {% csrf_token %}
+        <div class="textbox">
+          <i class="fas fa-user"></i>
+          <input type="text" name="userId" placeholder="Username">
+        </div>
 
-  <div class="textbox">
-    <i class="fas fa-lock"></i>
-    <input type="password" name="userpass" placeholder="Password">
-  </div>
-	<div style="float:right;margin-right:0px;">
-	<input type="radio" name="type" value="User" checked="true">
-  <input type="radio" value="Admin" name="type">
-  </div>
-  <input type="submit" class="btn" style="color:white;" value="Log in">
-  </form>
-</div>
+        <div class="textbox">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="userpass" placeholder="Password">
+        </div>
+        <div style="float:right;margin-right:0px;">
+          <input type="radio" name="type" value="User" checked="true">
+          <input type="radio" value="Admin" name="type">
+        </div>
+        <input type="submit" class="btn" style="color:white;" value="Log in">
+      </form>
+    </div>
   </body>
 </html>

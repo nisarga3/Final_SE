@@ -148,7 +148,7 @@
     <!-- nice select -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
 
-    <script>
+    <!-- <script>
       // isotope js
       $(window).on('load', function () {
         $('.filters_menu li').click(function () {
@@ -169,8 +169,40 @@
           }
         })
       });
-    </script>
+    </script> -->
           <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          
+     <script>
+      function filterObjects(c)
+      {
+        var x,i;
+        x=document.getElementsByClassName(c);
+        if(c=="all") c="";
+        for(i=0;i<x.length;i++){
+          removeClass(x[i],"show");
+          if(x[i].className.indexOf(c)> -1) addClass(x[i],"show");
+        }
+      }
+
+      function addClass(element,name){
+        var i,arr1,arr2;
+        arr1=element.className.split(" ");
+        arr2=name.split(" ");
+        for(i=0;i<arr2.length;i++){
+          if(arr1.indexOf(ar2[i])==-1) element.className+=" "+arr2[i];
+        }
+      }
+
+      function removeClass(element,name){
+        var i,arr1,arr2;
+        arr1=element.className.split(" ");
+        arr2=name.split(" ");
+        for(i=0;i<arr2.length;i++){
+          while(arr1.indexOf(ar2[i])>-1) arr1.splice(arr1.indexOf(arr2[i]));
+          element.className=arr1.join(" ");
+        }
+      }
+      </script> 
 
 
     <style>.example button {
@@ -204,8 +236,12 @@
     <script>
       function cartconfirm()
       {
-                swal("Successfully added   to cart", "success");
-                      
+          Swal.fire(
+          'Done!',
+          'Added to cart Successfully!',
+          'success'
+         )
+       // swal("Successfully added   to cart", "success");     
       }
      
       </script>
@@ -274,6 +310,11 @@
               ><i class="fas fa-shopping-cart" style="font-size: 20px"></i> Cart
               <span class="sr-only">(current)</span></a
             >
+          </li>
+          {% endif %}{% if request.session.CustId is not None and request.session.AdminId is None %}
+          <li class="nav-item active">
+            <a class="nav-link" id="nav-link" href="/wallet"><i class="fas fa-wallet"></i> User Wallet         
+               <span class="sr-only">(current)</span></a>
           </li>
           {% endif %} {% if request.session.CustId is not None or request.session.AdminId is not None %}
           <li class="nav-item dropdown">
@@ -365,21 +406,21 @@
         </div>
 
         <ul class="filters_menu">
-          <li class="active" data-filter=".all">All</li>
-          <li data-filter=".Sandwich">Sandwich</li>
-          <li data-filter=".rolls">Rolls</li>
-          <li data-filter=".pasta">Pasta</li>
-          <li data-filter=".south thali">South thali</li>
-          <li data-filter=".north thali">North thali</li>
-          <li data-filter=".chinese">Chinese</li>
-          <li data-filter=".north indian">North Indian</li>
-          <li data-filter=".extra">Extras</li>
-          <li data-filter=".beverages">Beverages</li>
-          <li data-filter=".dosa">Dosa</li>
-          <li data-filter=".south indian">South indian</li>
-          <li data-filter=".quick bites">Quick bites</li>
-          <li data-filter=".Chaats">Chats</li>
-          <li data-filter=".Ice Cream">Ice creams</li>
+          <li class="active" class=".all">All</li>
+          <li class=".Sandwich">Sandwich</li>
+          <li class=".rolls">Rolls</li>
+          <li class=".pasta">Pasta</li>
+          <li class=".south thali">South thali</li>
+          <li class=".north thali">North thali</li>
+          <li class=".chinese">Chinese</li>
+          <li class=".north indian">North Indian</li>
+          <li class=".extra">Extras</li>
+          <li class=".beverages">Beverages</li>
+          <li class=".dosa">Dosa</li>
+          <li class=".south indian">South indian</li>
+          <li class=".quick bites">Quick bites</li>
+          <li class=".Chaats">Chats</li>
+          <li class=".Ice Cream">Ice creams</li>
         </ul>
       </section>
 
@@ -387,8 +428,11 @@
         <div class="container">
           <div class="filters-content">
             <div class="row grid">
+              {% for a in filters_menu %}
+              <a onclick = "filterObjects('{{a}}')"/>
+              {% endfor %}
               {% for f in foodlist %}
-              <div class="col-sm-6 col-lg-4 all {{f.FoodCat}} " data-category = "{{f.FoodCat}}">
+              <div class="col-sm-6 col-lg-4  " data-category = "{{f.FoodCat}}" >
                 <div class="box">
                   <div>
                     <div class="img-box">
@@ -399,17 +443,22 @@
                       <p>{{f.FoodID}}</p>
                       <div class="options">
                         <h6>Rs. {{f.FoodPrice}}</h6>
-                        {% if request.session.CustId is not None and request.session.AdminId is None %}
-                        <p>
-                          <div class="example">
+                        <br />
+                        {% if request.session.CustId is not none %}
+                        <b style="font-size:20px;"><i>{{c.FoodName}}</i></b><br/><b>Quantity :</b>
+                
+                    <input type="number" name="FoodQuant" class="qnt" value="{{f.FoodQuant}}" name="FoodQuant" id="foodqnt" min="1" max="20" style="text-align:center;"/>
+                    
+                    <input type="hidden" id="ctid" value="{{c.CartId}}" readonly />
+                        
+                        
                           <a href="/addtocart/{{f.FoodId}}"
                             >
                             <button id="b3" onclick="cartconfirm()">Add to Cart</button>
                            </a
                           > 
                         
-                        </div>
-                        </p>
+                        
 
                         {% endif %} 
                         {% if request.session.CustId is None and request.session.AdminId is not None %}

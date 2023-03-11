@@ -2,9 +2,12 @@
 <html lang="en" dir="ltr">
   <head>
 	{% load static %}
+  <link rel="icon" href="{% static 'images/favicon.ico' %}">
+
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{% static 'css/imperial_style.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/master.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cartlist_new.css' %}" />
     <link href="https://fonts.googleapis.com/css?family=Caveat:700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bevan&display=swap" rel="stylesheet">
@@ -21,20 +24,63 @@
   <body style="background-image: none">
 	
 	<script src="{% static 'js/jquery.min.js' %}"></script>
-	<script>
-	$(document).ready(function(){
-		$(".qnt").change(function(){
-			var s=this.nextSibling.value+"@"+this.value;
-			$.get("updateqnty/"+s);
-		});
-	});
-		function confirm()
-		{
-			document.getElementById("cnf-btn").style.display = "none";
-			document.getElementById("sub-btn").style.display = "block";
-		}
-</script>
+	
   </head>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    $(document).ready(function(){
+      $(".qnt").change(function(){
+        var s=this.nextSibling.value+"@"+this.value;
+        $.get("updateqnty/"+s);
+      });
+    });
+      function confirm()
+      {
+        document.getElementById("cnf-btn").style.display = "none";
+        document.getElementById("sub-btn").style.display = "block";
+        Swal.fire(
+            'Order Confirmed',
+            'success'
+           )
+         // swal("Successfully added   to cart", "success");     
+      }
+      function placeorder()
+      {
+        Swal.fire(
+            'Placed Order',
+            'Please proceed to the payment',
+            'success'
+           )
+         // swal("Successfully added   to cart", "success");     
+      }
+      function confirmdel()
+      {
+        event.preventDefault();
+        var url = $(b4).attr('href');
+
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = url;
+            console.log(url);
+                Swal.fire(
+          'Deleted!',
+          'Your item has been deleted.',
+          'success'
+        )
+          }
+        })  
+      }
+  </script>
     <nav class="navbar navbar-expand-lg navbar-light" style="position: fixed;width:100%;background-image: linear-gradient(180deg,#FFF,#FFF);box-shadow: 0px 0px 7px 0px #404040;">
       <a class="navbar-brand" href="/"><h2 style="color:black;font-family:sans-serif;font-weight:bolder;"><b>Mingos</b></h2></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,6 +100,12 @@
           <li class="nav-item active">
             <a class="nav-link" id="nav-link" href="allfood">Food Menu <span class="sr-only">(current)</span></a>
           </li>
+          {% if request.session.CustId is not None and request.session.AdminId is None %}
+          <li class="nav-item active">
+            <a class="nav-link" id="nav-link" href="/wallet"><i class="fas fa-wallet"></i> User Wallet         
+               <span class="sr-only">(current)</span></a>
+          </li>
+          {% endif %}
           {% if request.session.CustId is None and request.session.AdminId is None %}
           <li class="nav-item active">
             <a class="nav-link" id="nav-link" href="addcustomer">Register <span class="sr-only">(current)</span></a>
@@ -103,23 +155,34 @@
         <input type="number" name="FoodQuant" class="qnt" value="{{c.FoodQuant}}" name="FoodQuant" id="foodqnt" min="1" max="20" style="text-align:center;"/><input type="hidden" id="ctid" value="{{c.CartId}}" readonly />
 <br />
 <tr>
-<td><b>Price:  </b></td><td><td id="tlp" style="color:black;"><input class="totalprice" style="outline:none;border:none;width:auto!important;" name="FoodPrice" value="{{c.FoodPrice}}" readonly></td><br />
+<td><b>Price for one:  </b></td><td><td id="tlp" style="color:black;"><input class="totalprice" style="outline:none;border:none;width:auto!important;" name="FoodPrice" value="{{c.FoodPrice}}" readonly></td><br />
 </tr>
+<tr>
+  <td><b>Price:  </b></td><td><td id="tlp" style="color:black;"><input class="totalprice" style="outline:none;border:none;width:auto!important;" value="{{c.FoodPrice}}*{{c.FoodQuant}} " readonly></td><br />
+  </tr>
       </span>
 
-        <a href="/deletecart/{{c.CartId}}"><button type="button" name="button" id="b4" style="float: right;border-bottom-left-radius: 12px;padding: 15px 15px 15px 15px;margin-bottom: 0px;margin-top: auto!important;background: red;color:white;font-weight: bold;border:none;outline:none;">DELETE</button></a>
+        <!-- <a href="/deletecart/{{c.CartId}}"> -->
+          <button href="/deletecart/{{c.CartId}}" type="button" onclick="confirmdel()" name="button" id="b4" style="float: right;border-bottom-left-radius: 12px;padding: 15px 15px 15px 15px;margin-bottom: 0px;margin-top: auto!important;background: red;color:white;font-weight: bold;border:none;outline:none;">DELETE</button></a>
       </div>
       {% endfor %}
       <input onclick="confirm()" value="CONFIRM" id="cnf-btn" class="butn" style="cursor:pointer;text-align:center;box-shadow:1px 1px 5px;border-radius:5px;width:50%;margin-left:25%;outline:none;border:none;height:40px;margin-top:20px;margin-bottom:20px;"/>
-	  <input type="submit" value="PLACE ORDER" id="sub-btn" class="butn" style="display:none;box-shadow:1px 1px 5px;border-radius:5px;width:50%;margin-left:25%;outline:none;border:none;height:40px;margin-top:20px;margin-bottom:20px;"/>
+	  <input type="submit" onclick="placeorder()" value="PLACE ORDER" id="sub-btn" class="butn" style="display:none;box-shadow:1px 1px 5px;border-radius:5px;width:50%;margin-left:25%;outline:none;border:none;height:40px;margin-top:20px;margin-bottom:20px;"/>
     </form>
-    <script>
-      // document.getElementById('b4').addEventListener('click', function() {
-      // Call the swal function to display the alert
-      swal("Hello world!");
-    // });
-      </script>
+
+    <div class="column2">
+      <div class="large">
+          <div class="column2-title">
+              <h1>Current Balance</h1>
+          </div>
+          <div class="column2-title2">
+          <h1><span>Rs. {{ total_amt }}</span></h1>
+                      </div>
+          <hr>
+      </div>
+    </div>
     </main>
+
     <div class="footer">
       <div id="button"></div>
     <div id="container">

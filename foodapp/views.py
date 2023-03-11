@@ -1,3 +1,5 @@
+import plotly.io as pio
+import plotly.graph_objs as go
 from django.shortcuts import render, redirect
 from django.db import connection, transaction
 from foodapp.forms import FoodForm, CustForm, AdminForm, CartForm, OrderForm, AddFundsForm, SubtractFundsForm
@@ -5,8 +7,26 @@ from foodapp.models import Food, Cust, Admin, Cart, Order, admin_balance, Wallet
 import datetime
 from django.shortcuts import render
 from django.http import JsonResponse
+from datetime import date
+import matplotlib.pyplot as plt
+import plotly.express as px
+import pandas as pd
+
 cursor = connection.cursor()
 pay_total = 0.00
+sales_list = []
+
+
+def parse_list(lis):
+    sales = []
+    dates = []
+    for ele in lis:
+        sales.append(ele[0])
+        dates.append(ele[1])
+    # res = pd.DataFrame(dict(map(lambda i, j: (j, i), sales, dates)))
+    return dates, sales
+
+
 # Create your views here.
 
 
@@ -152,7 +172,7 @@ def showcart(request):
     cart = Cart.objects.raw(
         'Select CartId,FoodName,FoodPrice,FoodQuant,FoodImage from FP_Food as f inner join FP_Cart as c on f.FoodId=c.FoodId where c.CustEmail="%s"' % request.session['CustId'])
     transaction.commit()
-    return render(request, "cartlist.html", {'cartlist': cart})
+    return render(request, "cartlist.html", {'cartlist': cart, 'total_amt': pay_total})
 
 
 def updatepasswd(request):
@@ -194,6 +214,10 @@ def placeorder(request):
             request.session['CustId'], today, total)
         i = cursor.execute(sql)
         transaction.commit()
+        sql_del = 'delete from FP_Cart where CustEmail="%s"' % (
+            request.session['CustId'])
+        i = cursor.execute(sql_del)
+        transaction.commit()
         sql1 = 'select * from FP_Order where CustEmail="%s" and OrderDate="%s"' % (
             request.session['CustId'], today)
         for o in Order.objects.raw(sql1):
@@ -205,15 +229,20 @@ def placeorder(request):
             custs = c
         wallet = Wallet.objects.get(user=custs)
         print(wallet.balance)
-        sql = 'delete from FP_Cart where CustEmail="%s"' % (
-            request.session['CustId'])
-        i = cursor.execute(sql)
-        transaction.commit()
 
         od = Order()
     else:
         form = SubtractFundsForm()
     return redirect('subtract_funds')
+# --------------------------------------------------------------
+
+
+def calculate_price(request):
+    quantity = request.GET.get('quantity')
+    price = calculate_price(quantity)
+    data = {'price': price}
+    return (data)
+# --------------------------------------------------------
 
 
 def getorder(request):
@@ -287,7 +316,7 @@ def add_funds(request):
 
 
 def subtract_funds(request):
-    global pay_total
+    global pay_total, sales_list
     adm_wallet = None
     if request.method == 'POST':
         form = SubtractFundsForm(initial={'amount': pay_total})
@@ -301,6 +330,7 @@ def subtract_funds(request):
         if wallet.balance >= float(amount):
             # Debit at customer end
             wallet.balance = float(wallet.balance)-float(amount)
+            sales_list.append([float(amount), datetime.date.today().day])
             # Credit at admin end
             adm_wallet.balance = float(adm_wallet.balance) + float(amount)
             wallet.transactions += f'Subtracted {amount}\n'
@@ -341,5 +371,22 @@ def admin_acc(request):
         adm_wallet = admin_wallet.objects.get(user=admin)
     except:
         admin_wallet.objects.create(user=admin, balance=0.0)
+
         adm_wallet = admin_wallet.objects.get(user=admin)
     return render(request, 'admin_wallet.html', {'adm_wallet': adm_wallet})
+
+
+def my_plot(request):
+    global sales_list
+    dates, sales = parse_list(sales_list)
+    print(sales_list)
+    trace = go.Scatter(x=dates, y=sales, mode='lines')
+    layout = go.Layout(title='Sales by Day of Week', xaxis=dict(
+        title='Day of Week'), yaxis=dict(title='Sales'))
+    fig = go.Figure(data=[trace], layout=layout)
+    div = pio.to_html(fig, full_html=False)
+    return render(request, 'dashboard.html', {'graph': div})
+
+
+def dashboard(request):
+    return render(request, 'dashboard.html')

@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath project FoodProject.wsgi:application --access-logfile -
