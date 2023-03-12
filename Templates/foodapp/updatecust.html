@@ -79,6 +79,21 @@
 
 	}
 	</style>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+          function reg()
+          {
+            console.log("Upd");
+              Swal.fire({
+                icon: 'Success',
+                title:'Updated Successfully',
+                text: 'You can Proceed to Login Page now!',
+              })
+          }
+         
+          </script>
 </head>
 
 <body>
@@ -167,7 +182,7 @@
 			<span class="entry-box">Address : <textarea type="text" rows="3" name="Address" placeholder="Eg : &quot;123, pragati college,Datta Nagar Dombivali East&quot;" maxlength="140" required></textarea></span>
             <center><button type="reset"class="butn" style="
             background-image: linear-gradient(190deg, rgba(183,28,28 ,1), rgba(239,154,154 ,1));" name="button"><a href="home">Cancel</a></button>
-              &nbsp;&nbsp;<button type="submit" class="butn" name="button">Update</button>
+              &nbsp;&nbsp;<button type="submit" class="butn" name="button" onclick="reg()">Update</button>
               </center>
             </form></center>
 			</div>

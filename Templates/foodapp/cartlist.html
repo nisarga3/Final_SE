@@ -32,7 +32,7 @@
   <script>
     $(document).ready(function(){
       $(".qnt").change(function(){
-        var s=this.nextSibling.value+"@"+this.value;
+        var s=this.nextSibling.value+"@"+this.value;;
         $.get("updateqnty/"+s);
       });
     });
@@ -80,6 +80,10 @@
           }
         })  
       }
+
+    function updateVariable() {
+
+}
   </script>
     <nav class="navbar navbar-expand-lg navbar-light" style="position: fixed;width:100%;background-image: linear-gradient(180deg,#FFF,#FFF);box-shadow: 0px 0px 7px 0px #404040;">
       <a class="navbar-brand" href="/"><h2 style="color:black;font-family:sans-serif;font-weight:bolder;"><b>Mingos</b></h2></a>
@@ -176,7 +180,7 @@
               <h1>Cart Price</h1>
           </div>
           <div class="column2-title2">
-          <h1><span>Rs. {{ total_amt }}</span></h1>
+          <h1 id = "disp_val">Rs. {{ total_amt }}</h1>
                       </div>
           <hr>
       </div>

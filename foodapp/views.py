@@ -167,18 +167,16 @@ def delcart(request, CartId):
     cart.delete()
     return redirect("/allcart")
 
-
 def showcart(request):
     global pay_total
+    total = 0.0
     cart = Cart.objects.raw(
         'Select CartId,FoodName,FoodPrice,FoodQuant,FoodImage from FP_Food as f inner join FP_Cart as c on f.FoodId=c.FoodId where c.CustEmail="%s"' % request.session['CustId'])
     transaction.commit()
-    price = request.POST.getlist('FoodPrice', '')
-    q = request.POST.getlist('FoodQuant', '')
-    total = 0.0
-    for i in range(len(price)):
-        total = total+float(price[i])*float(q[i])
-        pay_total = total
+    price_list = [[float(c.FoodPrice),float(c.FoodQuant)] for c in cart]
+    for lis in price_list:
+        total += lis[0]*lis[1]
+    pay_total = total
     return render(request, "cartlist.html", {'cartlist': cart, 'total_amt': pay_total})
 
 
@@ -337,9 +335,9 @@ def subtract_funds(request):
         if wallet.balance >= float(amount):
             # Debit at customer end
             wallet.balance = float(wallet.balance)-float(amount)
-            sales_list.append([float(amount), datetime.date.today().day])
             # Credit at admin end
             adm_wallet.balance = float(adm_wallet.balance) + float(amount)
+            sales_list.append([float(amount),datetime.date.today().day])
             wallet.transactions += f'Subtracted {amount}\n'
             wallet.save()
             adm_wallet.save()

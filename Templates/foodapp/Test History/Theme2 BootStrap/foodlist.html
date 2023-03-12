@@ -114,7 +114,7 @@
 					<a class="hover" href="/getfood/{{f.FoodId}}">Update</a>
 					<a class="hover" href="/deletefood/{{f.FoodId}}">Delete</a>
 					{% endif %}
-					{% if request.session.CustId is not None and request.session.AdminId is None %}
+					{% if request.session.CustId is not None  %}
                     <a class="hover" href="/addtocart/{{f.FoodId}}">Add To Cart</a>
 					{% endif %}
                 </div>
@@ -181,10 +181,6 @@
                         <li><a href="#" class="fa fa-instagram"></a></li>
                         <li><a href="#" class="fa fa-google"></a></li>
                     </ul>
-                    <div class="wow fadeInUp copyright-text" data-wow-delay="0.8s">
-                        <p><br>Copyright &copy; 2020 <br>Mingos.com
-                            <br><br>Design By: <a rel="nofollow" href="#">RAR Group</a></p>
-                    </div>
                 </div>
             </div>
         </div>

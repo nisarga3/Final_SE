@@ -137,13 +137,13 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav" style="margin-left:auto!important;margin-right:30px;">
+        <ul class="navbar-nav"  style="z-index:0; margin-left:auto!important;margin-right:30px; ">
           <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" id="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
           </li>
           {% if request.session.CustId is None and request.session.AdminId is not None %}
           <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="addfoods">Add Food <span class="sr-only">(current)</span></a>
+            <a class="nav-link" id="nav-link" href="/addfoods">Add Food <span class="sr-only">(current)</span></a>
           </li>
           {% endif %}
           {% if request.session.CustId is None and request.session.AdminId is not None %}
@@ -152,21 +152,21 @@
           </li>
           {% endif %}
           <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="allfood">Food Menu <span class="sr-only">(current)</span></a>
+            <a class="nav-link" id="nav-link" href="/allfood">Food Menu <span class="sr-only">(current)</span></a>
           </li>
           {% if request.session.CustId is None and request.session.AdminId is None %}
           <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="addcustomer">Register <span class="sr-only">(current)</span></a>
+            <a class="nav-link" id="nav-link" href="/addcustomer">Register <span class="sr-only">(current)</span></a>
           </li>
           {% endif %}
           {% if request.session.CustId is None and request.session.AdminId is None %}
           <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="login">Login <span class="sr-only">(current)</span></a>
+            <a class="nav-link" id="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
           </li>
           {% endif %}
           {% if request.session.CustId is not None and request.session.AdminId is None %}
           <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="allcart"><i class="fas fa-shopping-cart" style="font-size:20px;"></i> Cart <span class="sr-only">(current)</span></a>
+            <a class="nav-link" id="nav-link" href="/allcart"><i class="fas fa-shopping-cart" style="font-size:20px;"></i> Cart <span class="sr-only">(current)</span></a>
           </li>
           {% endif %}
           {% if request.session.CustId is not None and request.session.AdminId is None %}
@@ -177,7 +177,7 @@
           {% endif %}
           {% if request.session.CustId is None and request.session.AdminId is not None %}
           <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="stats">Stats 
+            <a class="nav-link" id="nav-link" href="/stats">Stats 
                <span class="sr-only">(current)</span></a>
           </li>
           {% endif %}
@@ -187,17 +187,16 @@
               <i class="far fa-user-circle" style="font-size:20px;color:black;"></i>&nbsp;My Account
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			{% if request.session.CustId is not None and request.session.AdminId is None %}
-              <a class="dropdown-item" href="getcustomer">Edit Profile</a>
-            <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="orders"><i class="fas fa-clipboard-list" style="font-size:20px;"></i>&nbsp;&nbsp;&nbsp;Orders</a>
-              <a class="dropdown-item" href="orders"><i class="fas fa-history" style="font-size:20px;"></i>&nbsp;&nbsp;Order History</a>
-            <div class="dropdown-divider"></div>
-			  {% endif %}
-              <a class="dropdown-item" style="background:red;width:1;border-radius:4px;" href="logout"><i class="fas fa-sign-out-alt" style="font-size:20px;color:white;"></i>&nbsp;&nbsp;<font color="white">Logout</font></a>
-            </div>
+               {% if request.session.CustId is not None and request.session.AdminId is None %}
+                    <a class="dropdown-item" href="/getcustomer">Edit Profile</a>
+                  <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/orders"><i class="fas fa-clipboard-list" style="font-size:20px;"></i>&nbsp;&nbsp;&nbsp;Orders</a>
+                    <a class="dropdown-item" href="/orders"><i class="fas fa-history" style="font-size:20px;"></i>&nbsp;&nbsp;Order History</a>
+                  <div class="dropdown-divider"></div>
+                 {% endif %}
+                    <a class="dropdown-item" style="background:red;width:1;border-radius:4px;" href="/logout"><i class="fas fa-sign-out-alt" style="font-size:20px;color:white;"></i>&nbsp;&nbsp;<font color="white">Logout</font></a>
+                  </div>
           </li>
-          
           {% endif %}
         </ul>
 
@@ -223,7 +222,7 @@
                         <!-- </div> -->
                      </div>
                      <div class="col-md-6">
-                        <div class="banner_img"><img src="{% static 'images/b.jpeg' %}" style=    "width: 50%;
+                        <div class="banner_img" ><img src="{% static 'images/b.jpeg' %}" style=    "width: 50%;
                           text-align: center;"></div>
                      </div>
                   </div>

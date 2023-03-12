@@ -51,7 +51,8 @@ urlpatterns = [
     path('logout', views.doLogout),
 
     # ---- CART ----
-    path('addtocart/<int:FoodId>', views.addcart),
+    path('addtocart/<int:FoodId>/', views.addcart),
+    path('addtocart/<int:FoodId>/<int:FoodQuant>/',views.addcart),
     path('allcart', views.showcart),
     path('deletecart/<int:CartId>', views.delcart),
     path('updateqnty/<str:s>', views.updateQNT),
@@ -63,7 +64,7 @@ urlpatterns = [
     path('add_funds/', views.add_funds, name="add_funds"),
     path('subtract_funds/', views.subtract_funds, name="subtract_funds"),
     path('admin_wallet/', views.admin_acc, name="admin_wallet"),
-    path('stats/', views.my_plot, name="stats")
+    path('stats/', views.my_plot, name="stats"),
 
 ]
 if settings.DEBUG:
