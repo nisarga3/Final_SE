@@ -38,14 +38,23 @@
     });
       function confirm()
       {
-        document.getElementById("cnf-btn").style.display = "none";
+        if("{{ total_amt }}" =="0.0")
+        {
+          Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'The Cart is Empty',
+        })
+        }
+        else{
+          document.getElementById("cnf-btn").style.display = "none";
         document.getElementById("sub-btn").style.display = "block";
         Swal.fire(
             'Order Confirmed',
             'success'
            )
          // swal("Successfully added   to cart", "success");     
-      }
+      }}
       function placeorder()
       {
         Swal.fire(
