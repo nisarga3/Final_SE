@@ -130,6 +130,7 @@
       .mySlides {
         display: none;
       }
+
     </style>
 
     <title>Mingos | FoodMenu</title>
@@ -214,12 +215,14 @@
     .example button:focus{
       outline: none; 
     }
-    .example button:hover{
+    .options button:hover{
       background-color: #33DE23; 
     }
     .example button:active{
       background-color: #81ccee; 
-    }</style>
+    }
+    
+    </style>
 
 
   </head>
@@ -286,32 +289,32 @@
             >
           </li>
           {% endif %}
-          <li class="nav-item active">
+          <li class="nav-item activee">
             <a class="nav-link" id="nav-link" href="allfood"
               >Food Menu <span class="sr-only">(current)</span></a
             >
           </li>
           {% if request.session.CustId is None and request.session.AdminId is None %}
-          <li class="nav-item active">
+          <li class="nav-item activee">
             <a class="nav-link" id="nav-link" href="addcustomer"
               >Register <span class="sr-only">(current)</span></a
             >
           </li>
           {% endif %} {% if request.session.CustId is None and request.session.AdminId is None %}
-          <li class="nav-item active">
+          <li class="nav-item activee">
             <a class="nav-link" id="nav-link" href="login"
               >Login <span class="sr-only">(current)</span></a
             >
           </li>
           {% endif %} {% if request.session.CustId is not None and request.session.AdminId is None %}
-          <li class="nav-item active">
+          <li class="nav-item activee">
             <a class="nav-link" id="nav-link" href="allcart"
               ><i class="fas fa-shopping-cart" style="font-size: 20px"></i> Cart
               <span class="sr-only">(current)</span></a
             >
           </li>
           {% endif %}{% if request.session.CustId is not None and request.session.AdminId is None %}
-          <li class="nav-item active">
+          <li class="nav-item activee">
             <a class="nav-link" id="nav-link" href="/wallet"><i class="fas fa-wallet"></i> User Wallet         
                <span class="sr-only">(current)</span></a>
           </li>
@@ -383,17 +386,17 @@
           <li data-filter=".Sandwich">Sandwich</li>
           <li data-filter=".rolls">Rolls</li>
           <li data-filter=".pasta">Pasta</li>
-          <li data-filter=".south thali">South thali</li>
-          <li data-filter=".north thali">North thali</li>
+          <li data-filter=".south_thali">South thali</li>
+          <li data-filter=".north_thali">North thali</li>
           <li data-filter=".chinese">Chinese</li>
-          <li data-filter=".north indian">North Indian</li>
+          <li data-filter=".north_indian">North Indian</li>
           <li data-filter=".extra">Extras</li>
           <li data-filter=".beverages">Beverages</li>
           <li data-filter=".dosa">Dosa</li>
-          <li data-filter=".south indian">South indian</li>
-          <li data-filter=".quick bites">Quick bites</li>
+          <li data-filter=".south_indian">South indian</li>
+          <li data-filter=".quick_bites">Quick bites</li>
           <li data-filter=".Chaats">Chaats</li>
-          <li data-filter=".Ice cream">Ice creams</li>
+          <li data-filter=".Ice_cream">Ice creams</li>
         </ul>
       </section>
 
@@ -425,7 +428,8 @@
                  
                           <a href="/addtocart/{{f.FoodId}}"
                             >
-                            <p onclick="cartconfirm()"><i class="fas fa-cart-plus"style='font-size:140%; color:#183153' alt="Add to cart"></i></p></a>
+                            <p onclick="cartconfirm()"><i id="cart" class="fas fa-cart-plus"style='font-size:140%; color:#183153' alt="Add to cart"></i>
+</p></a>
                            
                         {% endif %} 
                         {% if request.session.CustId is None and request.session.AdminId is not None %}

@@ -48,7 +48,7 @@ urlpatterns = [
     # ---- LOGIN ----
     path('login', views.login),
     path('dologin', views.doLogin),
-    path('logout', views.doLogout),
+    path('logout/', views.doLogout),
 
     # ---- CART ----
     path('addtocart/<int:FoodId>/', views.addcart),
