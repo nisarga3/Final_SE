@@ -143,7 +143,7 @@ def doLogin(request):
             for a in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s" and CustPass="%s"' % (uid, upass)):
                 if a.CustEmail == uid:
                     request.session['CustId'] = uid
-                    return render(request, "index.html", {'success': 'Welcome '+a.CustName})
+                    return render(request, "index.html", {'success': 'Welcome '+a.CustId})
             else:
                 return render(request, "login.html", {'failure': 'Incorrect login details'})
 
