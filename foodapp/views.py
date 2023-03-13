@@ -11,6 +11,7 @@ from datetime import date
 import matplotlib.pyplot as plt
 import plotly.express as px
 import pandas as pd
+from django.utils import timezone
 
 cursor = connection.cursor()
 pay_total = 0.00
@@ -154,12 +155,6 @@ def doLogout(request):
     return render(request, 'index.html', {'success': 'Logged out successfully'})
 
 
-# def addcart(request, FoodId):
-#     sql = ' Insert into FP_Cart(CustEmail,FoodId,FoodQuant) values("%s","%d","%d")' % (
-#         request.session['CustId'], FoodId, 1)
-#     i = cursor.execute(sql)
-#     transaction.commit()
-#     return redirect('/allfood')
 from django.shortcuts import redirect
 from .models import Cart
 
@@ -210,6 +205,11 @@ def changepass(request):
             return render(request, 'updatepasswd.html', {'failure': 'Invalid attempt.'})
 
 
+from django.db import transaction
+from django.shortcuts import redirect, render
+from datetime import datetime
+from .models import Order, Cart, Wallet
+
 def placeorder(request):
     global pay_total
     if request.method == "POST":
@@ -220,30 +220,22 @@ def placeorder(request):
         for i in range(len(price)):
             total = total+float(price[i])*float(q[i])
         pay_total = total
-        today = datetime.datetime.now()
-        sql = 'insert into FP_Order(CustEmail,OrderDate,TotalBill) values ("%s","%s","%f")' % (
-            request.session['CustId'], today, total)
-        i = cursor.execute(sql)
-        transaction.commit()
-        sql_del = 'delete from FP_Cart where CustEmail="%s"' % (
-            request.session['CustId'])
-        i = cursor.execute(sql_del)
-        transaction.commit()
-        sql1 = 'select * from FP_Order where CustEmail="%s" and OrderDate="%s"' % (
-            request.session['CustId'], today)
-        for o in Order.objects.raw(sql1):
-            if o.CustEmail == request.session['CustId']:
-                od = str(o.OrderId)
-                print("Going to payments")
-                return redirect('subtract_funds')
-        for c in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s"' % request.session['CustId']):
-            custs = c
-        wallet = Wallet.objects.get(user=custs)
-        print(wallet.balance)
+        today = datetime.now()
+        
+        order = Order.objects.create(CustEmail=request.session['CustId'], OrderDate=today, TotalBill=total)
+        
+        Cart.objects.filter(CustEmail=request.session['CustId']).delete()
+        
+        for c in Cust.objects.filter(CustEmail=request.session['CustId']):
+            wallet = Wallet.objects.get(user=c)
+            print(wallet.balance)
 
-        od = Order()
+        print("Going to payments")
+        return redirect('subtract_funds')
+        
     else:
         form = SubtractFundsForm()
+        
     return redirect('subtract_funds')
 # --------------------------------------------------------------
 
@@ -325,17 +317,15 @@ def add_funds(request):
         form = AddFundsForm()
     return render(request, 'addfunds.html', {'form': form})
 
-
+# ---------------------------------
 def subtract_funds(request):
     global pay_total, sales_list
     adm_wallet = None
     if request.method == 'POST':
         form = SubtractFundsForm(initial={'amount': pay_total})
-        for c in Cust.objects.raw('Select * from FP_Cust where CustEmail="%s"' % request.session['CustId']):
-            custs = c
-            wallet = Wallet.objects.get(user=custs)
-        for a in Admin.objects.raw('Select * from FP_Admin where AdminId="admin"'):
-            admin = a
+        cust = Cust.objects.get(CustEmail=request.session['CustId'])
+        wallet = Wallet.objects.get(user=cust)
+        admin = Admin.objects.get(AdminId="admin")
         adm_wallet = admin_wallet.objects.get(user=admin)
         amount = request.POST.get('amount')
         if wallet.balance >= float(amount):
@@ -343,16 +333,19 @@ def subtract_funds(request):
             wallet.balance = float(wallet.balance)-float(amount)
             # Credit at admin end
             adm_wallet.balance = float(adm_wallet.balance) + float(amount)
-            sales_list.append([float(amount),datetime.date.today().day])
+            sales_list.append([float(amount), timezone.now().date()])
             wallet.transactions += f'Subtracted {amount}\n'
             wallet.save()
             adm_wallet.save()
             return redirect('wallet')
         else:
-            return render(request, 'subtractfunds.html', {'error': 'Insufficient funds'})
+            return render(request, 'subtractfunds.html', {'form': form, 'error': 'Insufficient funds'})
     else:
         form = SubtractFundsForm(initial={'amount': pay_total})
     return render(request, 'subtractfunds.html', {'form': form})
+
+
+# -------------------------------------------
 
 
 def append_lis(list, txt):

@@ -534,7 +534,7 @@ a:focus {
 }
 
 .food_section .box .img-box img {
-  max-width: 100%;
+  max-width: 145px;
   max-height: 145px;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
