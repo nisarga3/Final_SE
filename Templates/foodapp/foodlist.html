@@ -420,8 +420,7 @@
                         <br />
                         {% if request.session.CustId is not none %}
                         <b style="font-size:20px;"><i>{{c.FoodName}}</i></b><br/>
-                        <b>Quantity :</b>
-                        <input type="number" name="FoodQuant" class="qnt" value={{f.FoodQuant}} name="FoodQuant" id="foodqnt" min="1" max="20" style="text-align:center;"/>
+                        
                     
                     <input type="hidden" id="ctid" value="{{c.CartId}}" readonly />
                         
