@@ -306,14 +306,16 @@
               >Login <span class="sr-only">(current)</span></a
             >
           </li>
-          {% endif %} {% if request.session.CustId is not None and request.session.AdminId is None %}
+          {% endif %} 
+          {% if request.session.CustId is not None and request.session.AdminId is None %}
           <li class="nav-item activee">
             <a class="nav-link" id="nav-link" href="allcart"
               ><i class="fas fa-shopping-cart" style="font-size: 20px"></i> Cart
               <span class="sr-only">(current)</span></a
             >
           </li>
-          {% endif %}{% if request.session.CustId is not None and request.session.AdminId is None %}
+          {% endif %}
+          {% if request.session.CustId is not None and request.session.AdminId is None %}
           <li class="nav-item activee">
             <a class="nav-link" id="nav-link" href="/wallet"><i class="fas fa-wallet"></i> User Wallet         
                <span class="sr-only">(current)</span></a>
@@ -335,7 +337,6 @@
               <a class="dropdown-item" style="background:red;width:1;border-radius:4px;" href="logout"><i class="fas fa-sign-out-alt" style="font-size:20px;color:white;"></i>&nbsp;&nbsp;<font color="white">Logout</font></a>
             </div>
           </li>
-      
           {% endif %}
         </ul>
       </div>
