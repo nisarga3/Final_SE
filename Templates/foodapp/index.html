@@ -129,267 +129,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
 
   </head>
-    <nav class="navbar navbar-expand-lg navbar-light" style="position: fixed;width:100%;background-image: linear-gradient(180deg,#FFF,#FFF);box-shadow: 0px 0px 7px 0px #404040;">
-      <link rel="icon" href="../" />
-      <img src="{% static 'images/logo.png' %}" width="120px" height="50px">
-
-      <a class="navbar-brand" href="/"><h2 style="color:black;font-family:sans-serif;font-weight:bolder;"><b>Mingos</b></h2></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav"  style="z-index:0; margin-left:auto!important;margin-right:30px; ">
-          <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
-          </li>
-          {% if request.session.CustId is None and request.session.AdminId is not None %}
-          <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="/addfoods">Add Food <span class="sr-only">(current)</span></a>
-          </li>
-          {% endif %}
-          {% if request.session.CustId is None and request.session.AdminId is not None %}
-          <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="/admin_wallet">Account<span class="sr-only">(current)</span></a>
-          </li>
-          {% endif %}
-          <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="/allfood">Food Menu <span class="sr-only">(current)</span></a>
-          </li>
-          {% if request.session.CustId is None and request.session.AdminId is None %}
-          <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="/addcustomer">Register <span class="sr-only">(current)</span></a>
-          </li>
-          {% endif %}
-          {% if request.session.CustId is None and request.session.AdminId is None %}
-          <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
-          </li>
-          {% endif %}
-          {% if request.session.CustId is not None and request.session.AdminId is None %}
-          <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="/allcart"><i class="fas fa-shopping-cart" style="font-size:20px;"></i> Cart <span class="sr-only">(current)</span></a>
-          </li>
-          {% endif %}
-          {% if request.session.CustId is not None and request.session.AdminId is None %}
-          <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="/wallet"><i class="fas fa-wallet"></i> User Wallet         
-               <span class="sr-only">(current)</span></a>
-          </li>
-          {% endif %}
-          {% if request.session.CustId is None and request.session.AdminId is not None %}
-          <li class="nav-item active">
-            <a class="nav-link" id="nav-link" href="/stats">Stats 
-               <span class="sr-only">(current)</span></a>
-          </li>
-          {% endif %}
-          {% if request.session.CustId is not None or request.session.AdminId is not None %}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="far fa-user-circle" style="font-size:20px;color:black;"></i>&nbsp;My Account
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-               {% if request.session.CustId is not None and request.session.AdminId is None %}
-                    <a class="dropdown-item" href="/getcustomer">Edit Profile</a>
-                  <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/orders"><i class="fas fa-clipboard-list" style="font-size:20px;"></i>&nbsp;&nbsp;&nbsp;Orders</a>
-                    <a class="dropdown-item" href="/orders"><i class="fas fa-history" style="font-size:20px;"></i>&nbsp;&nbsp;Order History</a>
-                  <div class="dropdown-divider"></div>
-                 {% endif %}
-                    <a class="dropdown-item" style="background:red;width:1;border-radius:4px;" href="/logout"><i class="fas fa-sign-out-alt" style="font-size:20px;color:white;"></i>&nbsp;&nbsp;<font color="white">Logout</font></a>
-                  </div>
-          </li>
-   
-          {% endif %}
-        </ul>
-
-      </div>
-    </nav>
-
-    <main>
-    </br>
-
-    <div id="starting_ban"> 
-    </br></br>
-         <div id="my_slider" class="carousel slide" data-ride="carousel">
-            <!-- <h2 class="banner_taital" style="padding-left: 20%;">{{success}}</h2> -->
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <div class="row" style="position: sticky;">
-                     <!-- <div class="col-md-6"> -->
-                        <!-- <div class="container"> -->
-                           <!-- <div class="banner_img"><img src="{% static 'images/a.jpeg' %}" style=    "width: 50%;
-                              text-align: center;"></div> -->
-                         <!-- </div> -->
-                           <!-- <h1 class="banner_taital style"></h1>
-                           <p class="banner_text"></p> -->
-                        <!-- </div> -->
-                     <!-- </div> -->
-                     <div class="col-md-6">
-                        <div class="banner_img" ><img src="{% static 'images/b.jpeg' %}" style=    "width: 50%;
-                          text-align: center;"></div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="row">
-                     <!-- <div class="col-md-6">
-                        <div class="container">
-                           <h1 class="banner_taital"></h1>
-                           <p class="banner_text"></p>
-                        </div>
-                     </div> -->
-                     <div class="col-md-6">
-                        <div class="banner_img"><img src="{% static 'images/a.jpeg' %}" style=    "width: 50%;
-                          text-align: center;"></div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="row">
-                     <div class="col-md-6">
-                        <div class="container">
-                           <img src="{% static 'images/c.jpeg' %}" style=    "width: 50%;
-                              text-align: center;">
-                           <p class="banner_text"></p>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="banner_img"></div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="carousel-item">
-              <div class="row">
-                 <div class="col-md-6">
-                    <div class="container">
-                       <h1 class="banner_taital"></h1>
-                       <p class="banner_text"></p>
-                       <div class="more_bt"><a href="#"></a></div>
-                    </div>
-                 </div>
-                 <div class="col-md-6">
-                  <img src="{% static 'images/d.jpeg' %}" style=    "width: 50%;
-                      text-align: center;">
-                    <div class="banner_img"></div>
-                 </div>
-              </div>
-           </div>
-        </div>
-        <div class="carousel-item">
-          <div class="row">
-             <div class="col-md-6">
-                <div class="container">
-                   <h1 class="banner_taital"></h1>
-                   <p class="banner_text"></p>
-                   <div class="more_bt"><a href="#"></a></div>
-                </div>
-             </div>
-             <div class="col-md-6">
-               <img src="{% static 'images/e.jpeg' %}" style=    "width: 50%;
-                  text-align: center;">
-                <div class="banner_img"></div>
-             </div>
-          </div>
-       </div>
-       <div class="carousel-item">
-        <div class="row">
-           <div class="col-md-6">
-              <div class="container">
-                 <h1 class="banner_taital"></h1>
-                 <p class="banner_text"></p>
-                 <div class="more_bt"><a href="#"></a></div>
-              </div>
-           </div>
-           <div class="col-md-6">
-            <img src="{% static 'images/f.jpeg' %}" style=    "width: 50%;
-                text-align: center;">
-              
-           </div>
-        </div>
-     </div>
-  </div>
-  <div class="carousel-item">
-    <div class="row">
-       <div class="col-md-6">
-          <div class="container">
-             <h1 class="banner_taital"></h1>
-             <p class="banner_text"></p>
-             <div class="more_bt"><a href="#"></a></div>
-          </div>
-       </div>
-       <div class="col-md-6">
-          <div class="banner_img"><img src="{% static 'images/g.jpeg' %}" style=    "width: 50%;
-            text-align: center;"></div>
-       </div>
-    </div>
- </div>
-</div>
-<div class="carousel-item">
-<div class="row">
-   <div class="col-md-6">
-      <div class="container">
-         <h1 class="banner_taital"><h1>
-         <p class="banner_text"><p>
-         <div class="more_bt"><a href="#"></a></div>
-      </div>
-   </div>
-   <div class="col-md-6">
-      <div class="banner_img"><img src="{% static 'images/h.jpeg' %}" style=    "width: 50%;
-        text-align: center;"></div>
-   </div>
-</div>
-</div>
-</div>
-<div class="carousel-item">
-<div class="row">
-   <div class="col-md-6">
-      <div class="container">
-         <h1 class="banner_taital"></h1>
-         <p class="banner_text"></p>
-         <div class="more_bt"><a href="#"></a></div>
-      </div>
-   </div>
-   <div class="col-md-6">
-      <div class="banner_img"><img src="{% static 'images/i.jpeg' %}" style=    "width: 50%;
-        text-align: center;"></div>
-   </div>
-</div>
-</div>
-</div>
-<div class="carousel-item">
-<div class="row">
-   <div class="col-md-6">
-      <div class="container">
-         <h1 class="banner_taital"></h1>
-         <p class="banner_text"></p>
-         <div class="more_bt"><a href="#"></a></div>
-      </div>
-   </div>
-   <div class="col-md-6">
-      <div class="banner_img"><img src="{% static 'images/j.jpeg' %}" style=    "width: 50%;
-        text-align: center;"></div>
-   </div>
-</div>
-</div>
-        </div>
-        <div class="about">
-          <h2 style="padding-top:5px;padding-left: 40% ;font-family: 'Courier New', Courier, monospace;">RVCE Canteen</h2>
-          <img src="{% static '/images/canteen_pic.png' %}" style="padding-left:20%;" class="img-fluid" alt=""> 
-
-        </div>
-
-    </main>
-      <div class="footer">
-         <div id="button"></div>
-       <div id="container">
-       <div id="cont">
-       <div class="footer_center">
-             <h3 style="color:white;">Mingos</h3>
-             <p style="color:white;">Made by Santosh | Nisarga | Keerthana🍔🍟🍕</p>
-       </div>
-       </div>
-       </div>
        <body>
          <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -404,5 +143,170 @@
                 // swal("Successfully added   to cart", "success");     
              
          </script>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light" style="position: fixed;z-index: 9999;width:100%;background-image: linear-gradient(180deg,#FFF,#FFF);box-shadow: 0px 0px 7px 0px #404040;">
+   <link rel="icon" href="../" />
+   <img src="{% static 'images/logo.png' %}" width="120px" height="50px">
+
+   <a class="navbar-brand" href="/"><h2 style="color:black;font-family:sans-serif;font-weight:bolder;"><b>Mingos</b></h2></a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+     <ul class="navbar-nav"  style="z-index:0; margin-left:auto!important;margin-right:30px; ">
+       <li class="nav-item active">
+         <a class="nav-link" id="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+       </li>
+       {% if request.session.CustId is None and request.session.AdminId is not None %}
+       <li class="nav-item active">
+         <a class="nav-link" id="nav-link" href="/addfoods">Add Food <span class="sr-only">(current)</span></a>
+       </li>
+       {% endif %}
+       {% if request.session.CustId is None and request.session.AdminId is not None %}
+       <li class="nav-item active">
+         <a class="nav-link" id="nav-link" href="/admin_wallet">Account<span class="sr-only">(current)</span></a>
+       </li>
+       {% endif %}
+       <li class="nav-item active">
+         <a class="nav-link" id="nav-link" href="/allfood">Food Menu <span class="sr-only">(current)</span></a>
+       </li>
+       {% if request.session.CustId is None and request.session.AdminId is None %}
+       <li class="nav-item active">
+         <a class="nav-link" id="nav-link" href="/addcustomer">Register <span class="sr-only">(current)</span></a>
+       </li>
+       {% endif %}
+       {% if request.session.CustId is None and request.session.AdminId is None %}
+       <li class="nav-item active">
+         <a class="nav-link" id="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+       </li>
+       {% endif %}
+       {% if request.session.CustId is not None and request.session.AdminId is None %}
+       <li class="nav-item active">
+         <a class="nav-link" id="nav-link" href="/allcart"><i class="fas fa-shopping-cart" style="font-size:20px;"></i> Cart <span class="sr-only">(current)</span></a>
+       </li>
+       {% endif %}
+       {% if request.session.CustId is not None and request.session.AdminId is None %}
+       <li class="nav-item active">
+         <a class="nav-link" id="nav-link" href="/wallet"><i class="fas fa-wallet"></i> User Wallet         
+            <span class="sr-only">(current)</span></a>
+       </li>
+       {% endif %}
+       {% if request.session.CustId is None and request.session.AdminId is not None %}
+       <li class="nav-item active">
+         <a class="nav-link" id="nav-link" href="/stats">Stats 
+            <span class="sr-only">(current)</span></a>
+       </li>
+       {% endif %}
+       {% if request.session.CustId is not None or request.session.AdminId is not None %}
+       <li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <i class="far fa-user-circle" style="font-size:20px;color:black;"></i>&nbsp;My Account
+         </a>
+         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% if request.session.CustId is not None and request.session.AdminId is None %}
+                 <a class="dropdown-item" href="/getcustomer">Edit Profile</a>
+               <div class="dropdown-divider"></div>
+                 <a class="dropdown-item" href="/orders"><i class="fas fa-clipboard-list" style="font-size:20px;"></i>&nbsp;&nbsp;&nbsp;Orders</a>
+                 <a class="dropdown-item" href="/orders"><i class="fas fa-history" style="font-size:20px;"></i>&nbsp;&nbsp;Order History</a>
+               <div class="dropdown-divider"></div>
+              {% endif %}
+                 <a class="dropdown-item" style="background:red;width:1;border-radius:4px;" href="/logout"><i class="fas fa-sign-out-alt" style="font-size:20px;color:white;"></i>&nbsp;&nbsp;<font color="white">Logout</font></a>
+               </div>
+            </li>
+            
+            {% endif %}
+          </ul>
+  
+        </div>
+ </nav>
+
+ <main>
+ </br>
+
+ <div id="starting_ban"> 
+ </br></br>
+      
+     </div>
+     <div class="about">
+      <div>
+         <style>
+            .bounce {
+                height: 50px;
+                overflow: hidden;
+                position: relative;
+                background: #fefefe;
+                color: #333;
+                border: 1px solid #4a4a4a;
+            }
+            
+            .bounce p {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                line-height: 50px;
+                text-align: center;
+                -moz-transform: translateX(50%);
+                -webkit-transform: translateX(50%);
+                transform: translateX(50%);
+                -moz-animation: bouncing-text 15s linear infinite alternate;
+                -webkit-animation: bouncing-text 15s linear infinite alternate;
+                animation: bouncing-text 20s linear infinite alternate;
+            }
+            
+            @-moz-keyframes bouncing-text {
+                0% {
+                    -moz-transform: translateX(50%);
+                }
+                100% {
+                    -moz-transform: translateX(-50%);
+                }
+            }
+            
+            @-webkit-keyframes bouncing-text {
+                0% {
+                    -webkit-transform: translateX(50%);
+                }
+                100% {
+                    -webkit-transform: translateX(-50%);
+                }
+            }
+            
+            @keyframes bouncing-text {
+                0% {
+                    -moz-transform: translateX(50%);
+                    -webkit-transform: translateX(50%);
+                    transform: translateX(50%);
+                }
+                100% {
+                    -moz-transform: translateX(-50%);
+                    -webkit-transform: translateX(-50%);
+                    transform: translateX(-50%);
+                }
+            }
+        </style>
+        <div class="bounce">
+            <p style="padding-top:10px;padding-left: 43% ;font-family: 'Courier New', Courier, monospace;font-weight: bold; font-size: 35px;"> RVCE CANTEEN </p>
+        </div>
+      </div>
+      <!-- <marquee style="padding-top:10px;padding-left: 43% ;font-family: 'Courier New', Courier, monospace;font-weight: bold; font-size: 30px;">RVCE CANTEEN</marquee> -->
+       <!-- <h2 style="padding-top:10px;padding-left: 43% ;font-family: 'Courier New', Courier, monospace;font-weight: bold; font-size: 30px;">RVCE CANTEEN</h2> -->
+       <img src="{% static '/images/canteen_pic.png' %}" style="padding-left:18%;" class="img-fluid" alt=""> 
+
+     </div>
+
+ </main>
+   <div class="footer">
+      <div id="button"></div>
+    <div id="container">
+    <div id="cont">
+    <div class="footer_center">
+          <h3 style="color:white;">Mingos</h3>
+          <p style="color:white;">Made by Santosh | Nisarga | Keerthana🍔🍟🍕</p>
+    </div>
+    </div>
+    </div>
        </body>
 </html>

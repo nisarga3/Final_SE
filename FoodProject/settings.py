@@ -23,7 +23,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'Templates/foodapp/')
 SECRET_KEY = 'c@mzjzz2yu&idjufq$4k(gl_p5%e4x0f(k7(4))qqt*1k5w2p7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'foodapp',
     'crispy_forms',
     'sweetify',
-    'jquery',
+    'jquery'
 ]
 # possible options: 'sweetalert', 'sweetalert2' - default is 'sweetalert2'
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
@@ -122,12 +122,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
 
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
