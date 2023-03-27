@@ -120,14 +120,20 @@
         <!-- Responsive-->
         <link rel="stylesheet" type="text/css" href="{% static 'css/responsiveness.css'%}">
         <!-- fevicon -->
-        <link rel="icon" href="{%static 'images/fevicon.png'%}" type="image/gif" />
+        <link rel="icon" href="{%static 'images/fevicon.png' %}" type="image/gif" />
         <!-- Scrollbar Custom CSS -->
         <!-- Tweaks for older IEs-->
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
         <!-- owl stylesheets --> 
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/brands.min.css" integrity="sha512-L+sMmtHht2t5phORf0xXFdTC0rSlML1XcraLTrABli/0MMMylsJi3XA23ReVQkZ7jLkOEIMicWGItyK4CAt2Xw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/fontawesome.min.css" integrity="sha512-cHxvm20nkjOUySu7jdwiUxgGy11vuVPE9YeK89geLMLMMEOcKFyS2i+8wo0FOwyQO/bL8Bvq1KMsqK4bbOsPnA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/regular.min.css" integrity="sha512-3YMBYASBKTrccbNMWlnn0ZoEOfRjVs9qo/dlNRea196pg78HaO0H/xPPO2n6MIqV6CgTYcWJ1ZB2EgWjeNP6XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/solid.min.css" integrity="sha512-bdTSJB23zykBjGDvyuZUrLhHD0Rfre0jxTd0/jpTbV7sZL8DCth/88aHX0bq2RV8HK3zx5Qj6r2rRU/Otsjk+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/svg-with-js.min.css" integrity="sha512-kykcz2VnxuCLnfiymkPqtsNceqEghEDiHWWYMa/nOwdutxeFGZsUi1+TEWT4MyesfxybNGpJNCVXzEPXSO8aKQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
        <body>
          <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -150,14 +156,15 @@
    <link rel="icon" href="../" />
    <img src="{% static 'images/logo.png' %}" width="120px" height="50px">
 
-   <a class="navbar-brand" href="/"><h2 style="color:black;font-family:sans-serif;font-weight:bolder;"><b>Mingos</b></h2></a>
+   <a class="navbar-brand" style="color:black;font-family:sans-serif;font-weight:bold;padding-bottom: 3px;" href="/">Mingos</a>
    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
    </button>
-   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+   <div class="collapse navbar-collapse"  id="navbarSupportedContent"    style="margin-left: 50%;" >
      <ul class="navbar-nav"  style="z-index:0; margin-left:auto!important;margin-right:30px; ">
-       <li class="nav-item active">
-         <a class="nav-link" id="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+       <li class="nav-item active" >
+         <a class="nav-link" id="nav-link" href="/home">  <i class="fas fa-home"></i>
+Home <span class="sr-only">(current)</span></a>
        </li>
        {% if request.session.CustId is None and request.session.AdminId is not None %}
        <li class="nav-item active">
@@ -221,15 +228,150 @@
   
         </div>
  </nav>
+ <div id="starting_ban" style="height: 50em;width:full;">
+   <h1 style="margin-left: 4em;margin-top:6em;font-weight:bold;font-family:cursive;color: #FFF;z-index: 99;">🍕⛽M I N G O S⛽🍕</h1><br/>
+   <h2 style="margin-left: 7em;font-style: italic;font-family:cursive;color: #FFF;z-index: 99;">"Fuel your day with our  <br><br>delicious bites!"🍟🍿</h2>
+ </div>
+ <h1 style="margin-left: auto;margin-right: auto;">MINGOS MENU</h1>
+
+ <div>
+   <style>
+      .wrap {
+      overflow: hidden;
+      margin: 10px;
+    }
+    .box {
+      float: left;
+      position: relative;
+      width: 20%;
+      padding-bottom: 20%;
+    }
+    .boxInner {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 10px;
+      bottom: 10px;
+      overflow: hidden;
+    }
+    .boxInner img {
+      width: 100%;
+    }
+    .boxInner .titleBox {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin-bottom: -50px;
+      background: #fff;
+      background: rgba(0, 0, 0, 0.5);
+      color: #FFF;
+      padding: 10px;
+      text-align: center;
+      -webkit-transition: all 0.3s ease-out;
+      -moz-transition: all 0.3s ease-out;
+      -o-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out;
+    }
+    section.no-touch .boxInner:hover .titleBox, section.touch .boxInner.touchFocus .titleBox {
+      margin-bottom: 0;
+    }
+    @media only screen and (max-width : 480px) {
+      /* Smartphone view: 1 tile */
+      .box {
+        width: 100%;
+        padding-bottom: 100%;
+      }
+    }
+    @media only screen and (max-width : 650px) and (min-width : 481px) {
+      /* Tablet view: 2 tiles */
+      .box {
+        width: 50%;
+        padding-bottom: 50%;
+      }
+    }
+    @media only screen and (max-width : 1050px) and (min-width : 651px) {
+      /* Small desktop / ipad view: 3 tiles */
+      .box {
+        width: 33.3%;
+        padding-bottom: 33.3%;
+      }
+    }
+    @media only screen and (max-width : 1290px) and (min-width : 1051px) {
+      /* Medium desktop: 4 tiles */
+      .box {
+        width: 25%;
+        padding-bottom: 25%;
+      }
+    }
+
+   </style>
+   <section class="no-touch" >
+
+      <div class="wrap" style="margin-top:15px;margin-left: 15px;">
+        
+        <div class="box">
+          <div class="boxInner">
+            <img style="height: 20em;width: 15em;margin-left: auto;margin-right: auto;"src="{% static '/images/a.jpeg' %}">
+          </div>
+        </div>
+        
+        <div class="box">
+          <div class="boxInner">
+            <img style="height: 20em;width: 15em;margin-left: auto;margin-right: auto;"src="{% static '/images/b.jpeg' %}">
+          </div>
+        </div>
+        <div class="box">
+          <div class="boxInner">
+            <img style="height: 20em;width: 15em;margin-left: auto;margin-right: auto;"src="{% static '/images/c.jpeg' %}">
+          </div>
+        </div>
+        <div class="box">
+          <div class="boxInner">
+            <img style="height: 20em;width: 15em;margin-left: auto;margin-right: auto;"src="{% static '/images/d.jpeg' %}">
+          </div>
+        </div>
+        <div class="box">
+          <div class="boxInner">
+            <img style="height: 20em;width: 15em;margin-left: auto;margin-right: auto;"src="{% static '/images/e.jpeg' %}">
+          </div>
+        </div>
+        <div class="box">
+          <div class="boxInner">
+            <img style="height: 20em;width: 15em;margin-left: auto;margin-right: auto;"src="{% static '/images/f.jpeg' %}">
+          </div>
+        </div>
+        <div class="box">
+          <div class="boxInner">
+            <img style="height: 20em;width: 15em;margin-left: auto;margin-right: auto;"src="{% static '/images/g.jpeg' %}">
+          </div>
+        </div>
+        <div class="box">
+          <div class="boxInner">
+            <img style="height: 20em;width: 15em;margin-left: auto;margin-right: auto;"src="{% static '/images/h.jpeg' %}">
+          </div>
+        </div>
+        <div class="box">
+          <div class="boxInner">
+            <img style="height: 20em;width: 15em;margin-left: auto;margin-right: auto;"src="{% static '/images/i.jpeg' %}">
+          </div>
+        </div>
+        <div class="box">
+          <div class="boxInner">
+            <img style="height: 20em;width: 15em;margin-left: auto;margin-right: auto;"src="{% static '/images/j.jpeg' %}">
+          </div>
+        </div>
+        
+      </div>
+      
+    </section>
+ </div>
 
  <main>
  </br>
 
- <div id="starting_ban"> 
- </br></br>
-   
-      
-     </div>
+ 
+
      <div class="about">
       <div>
          <style>
@@ -304,7 +446,7 @@
     <div id="container">
     <div id="cont">
     <div class="footer_center">
-          <h3 style="color:white;">Mingos</h3>
+          <h3 style="color:white; ">Mingos</h3>
           <p style="color:white;">Made by Santosh | Nisarga | Keerthana🍔🍟🍕</p>
     </div>
     </div>
